@@ -22,9 +22,9 @@ const Navbar = () => {
     <>
       <main className="border p-2">
         <nav className="flex flex-row items-center justify-center gap-24">
-          <h1 className="text-red-700 text-2xl h-12 m-0 p-2 text-center">
+          <Link to='/' className="text-red-700 text-2xl h-12 m-0 p-2 text-center">
             LOGO
-          </h1>
+          </Link>
 
           <div className="flex flex-col w-60 truncate p-2 overflow-hidden">
             <span className="font-bold inline-block ">
@@ -65,11 +65,11 @@ const Navbar = () => {
               </g>
             </svg>
           </div>
-          <Link className="text-xl h-12 m-0 p-2 text-center">Login</Link>
+          <Link to='/sign-in' className="text-xl h-12 m-0 p-2 text-center">Sign In</Link>
           <div className="flex flex-row">
-            <button className="h-10 p-2 pl-10 bg-red-600 text-white rounded-lg text-center cursor-pointer">
+            <Link to='/cart' className="h-10 p-2 pl-10 bg-red-600 text-white rounded-lg text-center cursor-pointer">
               My Cart
-            </button>
+            </Link>
             <svg
               className="absolute p-2 w-10"
               viewBox="0 0 24 24"

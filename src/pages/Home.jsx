@@ -4,7 +4,7 @@ import ImageSlicer from "../components/ImageSlicer";
 
 export default function Home() {
   return (
-    <div>
+    <div className="flex flex-col">
       <Navbar />
       <ImageSlicer />
     </div>

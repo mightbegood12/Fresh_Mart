@@ -1,42 +1,76 @@
+import React, { useState } from "react";
+
+import Image1 from "../assets/img1.jpg";
+import Image2 from "../assets/img2.jpg";
+import Image3 from "../assets/img3.jpg";
+
 const ImageSlicer = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const images = [
+    { src: Image1, alt: "image#1" },
+    {
+      src: Image2,
+      alt: "image#2",
+    },
+    {
+      src: Image3,
+      alt: "image#3",
+    },
+  ];
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
+  };
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const placeholderImage = "https://via.placeholder.com/600x400.png";
+
   return (
     <section
-      aria-label="Grocery-Carousel "
-      className="flex  items-center justify-center"
+      aria-label="Grocery Carousel"
+      className="flex items-center justify-center "
     >
-      <div className="carousel relative">
-        <button className="bg-none opacity-50 text-white cursor-pointer rounded-lg p-2 bg-black/[0.2] absolute border-none text-xl top-2/4 prev z-10 -translate-y-1/2 hover:focus:bg-black/0.4 focus:outline left-4">
+      <div className="carousel relative max-h-96 max-w-4xl overflow-hidden">
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-20 text-white p-2 rounded-lg z-20 hover:bg-opacity-30"
+        >
           &#10594;
         </button>
-        <button className="bg-none opacity-50 text-white cursor-pointer rounded-lg p-2 bg-black/[0.2] absolute border-none text-xl top-2/4 next z-10 -translate-y-1/2  hover:focus:bg-black/0.4 focus:outline right-4">
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-20 text-white p-2 rounded-lg z-20 hover:bg-opacity-30"
+        >
           &#10596;
         </button>
-        <ul className="m-0 p-0 ">
-          <li
-            className="slide absolute inset-0 opacity-0 object-center"
-            data-active
-          >
-            <img
-              className="block object-cover object-center"
-              src="https://img.freepik.com/free-photo/anime-moon-landscape_23-2151645896.jpg?t=st=1727002283~exp=1727005883~hmac=17fc084a00e909ebbb1d67528d83c9cb5f30bf52e1f8dcf59f06ef95fae61bd3&w=1380"
-              alt="image#1"
-            />
-          </li>
-          <li className="slide absolute inset-0 opacity-0">
-            <img
-              className="block object-cover object-center"
-              src="https://images.unsplash.com/photo-1726855500757-658894d298eb?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="image#2"
-            />
-          </li>
-
-          <li className="slide absolute inset-0 opacity-0 object-center">
-            <img
-              className="block object-cover object-center"
-              src="https://images.unsplash.com/photo-1726344603918-156e119eb6d7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="image#3"
-            />
-          </li>
+        <ul className="relative flex transition-transform ease-in-out">
+          {images.map((image, index) => (
+            <li
+              key={index}
+              className={`slide h-full w-full transition-opacity duration-300 ease-in-out ${
+                index === currentIndex
+                  ? "opacity-100 flex-shrink-0 duration-300 delay-0 z-10"
+                  : "opacity-0"
+              }`}
+            >
+              <img
+                className="w-full h-full object-cover object-center"
+                src={image.src}
+                alt={image.alt}
+                onError={(e) => {
+                  e.target.src = placeholderImage;
+                }}
+              />
+            </li>
+          ))}
         </ul>
       </div>
     </section>

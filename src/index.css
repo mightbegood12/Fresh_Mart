@@ -2,13 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .scrollbar-medium::-webkit-scrollbar {
+    width: 12px;
+  }
+}
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: auto;
 }
 
 body {
   margin: 0;
+}
+
+.carousel-container {
+  overflow: hidden; /* Hide the overflowing items */
+  position: relative; /* For positioning buttons */
+}
+
+.carousel-items {
+  display: flex;
+  transition: transform 0.3s ease-in; /* Smooth transition */
+}
+
+.itemWrapper {
+  min-width: 120px; /* Set this to your desired item width */
+  flex-shrink: 0; /* Prevent shrinking */
 }

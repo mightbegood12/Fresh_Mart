@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [dropdown, setDropDown] = useState(false);
+  const dropdownRef = useRef(null);
   let groceries = [
     "Bread",
     "Eggs",
@@ -16,28 +17,44 @@ const Navbar = () => {
     "Olive oil",
   ];
   const handleDropDown = () => {
-    setDropDown(!dropdown);
+    setDropDown((prev) => !prev); // Toggle dropdown
   };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropDown(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <>
       <main className="border p-2">
         <nav className="flex flex-row items-center justify-center gap-24">
-          <Link to='/' className="text-red-700 text-2xl h-12 m-0 p-2 text-center">
+          <Link
+            to="/"
+            className="text-red-700 text-2xl h-12 m-0 p-2 text-center"
+          >
             LOGO
           </Link>
 
-          <div className="flex flex-col w-60 truncate p-2 overflow-hidden">
+          <div className="flex flex-col w-60 line-clamp-1 p-2 overflow-hidden">
             <span className="font-bold inline-block ">
               Delivery in 10 minutes
             </span>
-            <div className="text-sm inline-block">
+            <div className="text-sm block truncate">
               145 West 45th Street, Apt 3B, New York, NY 10036
             </div>
           </div>
           <div className="flex flex-col p-2">
             <input
               type="text"
-              className="border h-10 w-96 outline-none p-3 pl-10 rounded-lg placeholder-gray-500 
+              className="border h-10 min-w-96 outline-none p-3 pl-10 rounded-lg placeholder-gray-500 
                 "
               placeholder="Search 'Milk' "
             />
@@ -65,9 +82,14 @@ const Navbar = () => {
               </g>
             </svg>
           </div>
-          <Link to='/sign-in' className="text-xl h-12 m-0 p-2 text-center">Sign In</Link>
+          <Link to="/sign-in" className="text-xl h-12 m-0 p-2 text-center">
+            Sign In
+          </Link>
           <div className="flex flex-row">
-            <Link to='/cart' className="h-10 p-2 pl-10 bg-red-600 text-white rounded-lg text-center cursor-pointer">
+            <Link
+              to="/cart"
+              className="h-10 p-2 pl-10 bg-red-600 text-white rounded-lg text-center cursor-pointer"
+            >
               My Cart
             </Link>
             <svg
@@ -106,13 +128,13 @@ const Navbar = () => {
         <span className="relative inline-block">
           <Link onClick={handleDropDown}>More</Link>
           {dropdown && (
-            <ul className="absolute bg-white shadow-md py-2 w-48">
-              {groceries.map((gro) => (
+            <ul className="absolute z-10 bg-white shadow-md py-2 w-48">
+              {groceries.map((item) => (
                 <li
-                  key={gro}
+                  key={item}
                   className="px-4 py-2 cursor-pointer hover:bg-gray-100"
                 >
-                  {gro}
+                  {item}
                 </li>
               ))}
             </ul>

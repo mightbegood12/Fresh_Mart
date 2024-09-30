@@ -12,7 +12,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 body {

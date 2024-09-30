@@ -46,6 +46,15 @@ const ImageSlicer = () => {
     );
   };
 
+  useEffect(() => {
+    let slider = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000);
+    return () => clearInterval(slider);
+  }, [currentIndex]);
+
   const placeholderImage = "https://via.placeholder.com/600x400.png";
 
   return (
@@ -56,16 +65,16 @@ const ImageSlicer = () => {
       {isLoading ? (
         <HashLoader
           color="#70ff00"
-          loading
-          size={50}
+          isLoading
+          size={100}
           cssOverride={{
             height: "24rem",
             width: "24rem",
           }}
-          speedMultiplier={3}
+          speedMultiplier={4}
         />
       ) : (
-        <div className="carousel relative max-h-96 max-w-4xl overflow-hidden">
+        <div className="carousel relative max-h-96 max-w-6xl overflow-hidden">
           <button
             onClick={prevSlide}
             className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-20 text-white p-2 rounded-lg z-20 hover:bg-opacity-30"

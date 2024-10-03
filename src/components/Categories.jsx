@@ -20,7 +20,7 @@ export default function Categories({ title, items }) {
   return (
     <div className="flex flex-col mx-40 gap-2 max-h-96">
       <div className="text-2xl font-bold">{title}</div>
-      <div className="relative carousel-container">
+      <div className="relative carousel-container py-4">
         <button
           onClick={prev}
           className={`absolute left-0 top-1/2 z-10 transform -translate-y-1/2 bg-black bg-opacity-20 rounded-lg hover:bg-opacity-30 text-white p-2 ${
@@ -30,7 +30,7 @@ export default function Categories({ title, items }) {
           &#10094;
         </button>
         <div
-          className="carousel-items"
+          className="carousel-items px-4"
           style={{
             display: "flex",
             transition: "transform 0.3s ease",

@@ -178,7 +178,7 @@ const categoriesData = [
 
 export default function Home() {
   return (
-    <div className="scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 flex flex-col gap-5">
+    <div className="scrollbar min-h-screen scrollbar-thumb-gray-900 scrollbar-track-gray-100 flex flex-col gap-5 mb-8">
       <ImageSlicer />
       {categoriesData.map((category, index) => (
         <Categories key={index} title={category.title} items={category.items} />
@@ -186,3 +186,5 @@ export default function Home() {
     </div>
   );
 }
+
+export { categoriesData };

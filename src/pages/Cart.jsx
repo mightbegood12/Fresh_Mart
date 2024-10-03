@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Cart() {
-  return <div className="">Cart</div>;
+  return <div className="min-h-screen">Cart</div>;
 }

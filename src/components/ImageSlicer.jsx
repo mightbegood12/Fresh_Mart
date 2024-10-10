@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import HashLoader from "react-spinners/HashLoader";
 
 import Image1 from "../assets/img1.jpg";

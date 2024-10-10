@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Items from "./Items";
 
 export default function Categories({ title, items }) {

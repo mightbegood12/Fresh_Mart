@@ -1,4 +1,3 @@
-import React from "react";
 import ImageSlicer from "../components/ImageSlicer";
 import Categories from "../components/Categories";
 

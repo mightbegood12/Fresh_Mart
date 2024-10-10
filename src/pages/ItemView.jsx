@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function ItemView() {
   return (
     <div className=" flex h-auto justify-center min-h-screen">

@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap");
+
 @layer utilities {
   .scrollbar-medium::-webkit-scrollbar {
     width: 12px;
@@ -12,11 +14,16 @@
 *::before,
 *::after {
   box-sizing: border-box;
+
   /* overflow: auto; */
 }
 
 body {
   margin: 0;
+  font-family: "Red Hat Display", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
 }
 
 .carousel-container {

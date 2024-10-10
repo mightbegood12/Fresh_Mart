@@ -14,16 +14,14 @@ function App() {
       <header>
         <Navbar />
       </header>
-      <body className="">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/item-view" element={<ItemView />} />
-        </Routes>
-      </body>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/item-view" element={<ItemView />} />
+      </Routes>
       <footer>
         <Footer></Footer>
       </footer>

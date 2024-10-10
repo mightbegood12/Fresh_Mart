@@ -38,12 +38,12 @@ const Navbar = () => {
   return (
     <>
       <main className="border p-2">
-        <nav className="flex flex-row items-center justify-center gap-24">
+        <nav className="flex flex-row items-center justify-center gap-24 ">
           <Link
             to="/"
             className="text-red-700 text-2xl h-12 m-0 p-2 text-center"
           >
-            LOGO
+            Fresh Mart
           </Link>
           <div className="flex flex-col w-60 line-clamp-1 p-2 overflow-hidden">
             <span className="font-bold inline-block ">

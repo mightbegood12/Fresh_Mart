@@ -13,7 +13,7 @@ const images = [
 
 const ImageSlicer = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isloading, setIsloading] = useState(true);
 
   useEffect(() => {
     cacheImages(images);
@@ -30,8 +30,8 @@ const ImageSlicer = () => {
     });
 
     Promise.all(promises)
-      .then(() => setIsLoading(false))
-      .catch(() => setIsLoading(false));
+      .then(() => setIsloading(false))
+      .catch(() => setIsloading(false));
   };
 
   const prevSlide = () => {
@@ -62,10 +62,9 @@ const ImageSlicer = () => {
       aria-label="Grocery Carousel"
       className="flex items-center justify-center  overflow-hidden"
     >
-      {isLoading ? (
+      {isloading ? (
         <HashLoader
           color="#70ff00"
-          isLoading
           size={100}
           cssOverride={{
             height: "24rem",

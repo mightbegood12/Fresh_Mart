@@ -19,7 +19,7 @@ export default function Categories({ title, items }) {
 
   return (
     <div className="flex flex-col mx-40 gap-2 max-h-96">
-      <div className="text-2xl font-bold">{title}</div>
+      <div className="text-2xl font-semibold">{title}</div>
       <div className="relative carousel-container py-4">
         <button
           onClick={prev}

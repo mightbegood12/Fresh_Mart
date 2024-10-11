@@ -1,6 +1,6 @@
 export default function ProductDetails() {
   return (
-    <div className="w-[50%]">
+    <div className="w-[90%]">
       <h1 className="text-3xl font-semibold mb-4">Product Details</h1>
       <p className="text-lg pl-2 mb-6">Fresh Tomatoes</p>
 

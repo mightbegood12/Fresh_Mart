@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import SearchLogo from "../assets/search.svg";
-import CartLogo from "../assets/cart.svg";
+import SearchLogo from "/assets/search.svg";
+import CartLogo from "/assets/cart.svg";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {

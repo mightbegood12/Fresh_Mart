@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import HashLoader from "react-spinners/HashLoader";
 
-import Image1 from "../assets/img1.jpg";
-import Image2 from "../assets/img2.jpg";
-import Image3 from "../assets/img3.jpg";
+import Image1 from "/assets/img1.jpg";
+import Image2 from "/assets/img2.jpg";
+import Image3 from "/assets/img3.jpg";
 
 const images = [
   { src: Image1, alt: "image#1" },

@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
-import t1 from "../assets/t1.jpg";
-import t2 from "../assets/t2.jpg";
-import t3 from "../assets/t3.jpg";
-import t4 from "../assets/t4.jpg";
-import t6 from "../assets/t6.jpg";
+import t1 from "/assets/t1.jpg";
+import t2 from "/assets/t2.jpg";
+import t3 from "/assets/t3.jpg";
+import t4 from "/assets/t4.jpg";
+import t6 from "/assets/t6.jpg";
 import ProductDetails from "../components/ProductDetails";
 
 export default function ItemView() {
   const [select, setSelect] = useState(t6);
   const smallImages = [t1, t2, t3, t4];
-  const { productId } = useParams();
+  // const { productId } = useParams();
 
-  console.log(productId);
   return (
     <>
       <div className=" flex h-auto  justify-center ">

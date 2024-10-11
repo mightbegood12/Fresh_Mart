@@ -11,7 +11,7 @@ const Items = ({ item }) => {
 
   return (
     <Link to="/item-view" onClick={scrollToTop}>
-      <div className="itemWrapper px-4 flex flex-col drop-shadow-sm hover:scale-110 ease-in-out duration-300 gap-3 min-w-40 flex-shrink-0 rounded-lg p-4 border-[1px] border-opacity-30 border-gray-400 m-2 items-center justify-center">
+      <div className="itemWrapper px-4 flex flex-col drop-shadow-sm hover:scale-110 ease-in-out duration-300 gap-3 max-w-40 flex-shrink-0 rounded-lg p-4 border-[1px] border-opacity-30 border-gray-400 m-2 items-center justify-center">
         <div className="img object-cover">
           <img src={item.image} alt={item.name} />
         </div>

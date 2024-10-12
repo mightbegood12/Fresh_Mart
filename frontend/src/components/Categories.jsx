@@ -3,7 +3,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Items from "./Items";
 
-export default function Categories({ title, items }) {
+export default function Categories({ categoryTitle, items }) {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 1800 },
@@ -31,9 +31,9 @@ export default function Categories({ title, items }) {
     },
   };
   return (
-    <div className="carousel mx-[10%] flex flex-col gap-3">
+    <div className="carousel mx-[10%] flex flex-col gap-1 mt-8">
       <div className="text-2xl leading-8 font-semibold text-slate-700">
-        {title}
+        {categoryTitle}
       </div>
       <Carousel
         responsive={responsive}
@@ -45,8 +45,8 @@ export default function Categories({ title, items }) {
         keyBoardControl={true}
         customTransition="transform 500ms ease-in-out"
         transitionDuration={500}
-        containerClass="carousel-container h-[270px] "
-        itemClass=""
+        containerClass="carousel-container flex h-[270px] "
+        itemClass="max-w-auto"
         removeArrowOnDeviceType={["tablet", "mobile"]}
         renderButtonGroupOutside={true}
         customLeftArrow={
@@ -61,7 +61,7 @@ export default function Categories({ title, items }) {
         }
       >
         {items.map((item) => (
-          <Items key={item.id} item={item} />
+          <Items key={item.id} item={item} categoryTitle={categoryTitle} />
         ))}
       </Carousel>
     </div>

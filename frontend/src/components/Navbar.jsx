@@ -40,7 +40,7 @@ const Navbar = () => {
   return (
     <>
       <main className="border p-2">
-        <nav className="flex flex-row items-center justify-center gap-24 ">
+        <nav className=" sticky flex flex-row items-center justify-center gap-24 ">
           <Link
             to="/"
             className="text-red-700 text-2xl h-12 m-0 p-2 text-center"

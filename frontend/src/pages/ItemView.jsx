@@ -1,68 +1,106 @@
-import React, { useState } from "react";
-// import { useParams } from "react-router-dom";
-
-
+import React, { useEffect, useState } from "react";
+import HashLoader from "react-spinners/HashLoader";
 import ProductDetails from "../components/ProductDetails";
+import { useLocation } from "react-router-dom";
 
 export default function ItemView() {
-  const t1 = "/assets/t1.jpg";
-  const t2 = "/assets/t2.jpg";
-  const t3 = "/assets/t3.jpg";
-  const t4 = "/assets/t4.jpg";
-  const t6 = "/assets/t6.jpg";
-  // const {params} = useParams()
+  const { state } = useLocation();
+  const { item, categoryTitle } = state || {};
 
+  // Set the initial selected image from the item, or a placeholder if not provided
+  const [select, setSelect] = useState(
+    item.images[0] || "/assets/placeholder.png"
+  );
+  const [isloading, setIsloading] = useState(true);
 
-  const [select, setSelect] = useState(t6);
-  const smallImages = [t1, t2, t3, t4];
- 
-  
+  useEffect(() => {
+    cacheImages(item.images);
+  }, [item.images]);
+
+  const cacheImages = (srcArray) => {
+    const promises = srcArray.map((src) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = src.src;
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+    });
+
+    Promise.all(promises)
+      .then(() => setIsloading(false))
+      .catch(() => setIsloading(false));
+  };
+
+  const handleAddToCart = () => {
+    console.log(`Added ${item.name} to cart`);
+    // Implement cart functionality
+  };
 
   return (
     <>
-      <div className=" flex h-auto  justify-center ">
+      <div className="flex h-auto justify-center">
         <div className="wrapper flex m-2 p-2 flex-row justify-between gap-8">
-          <div className="item-img-cont flex-grow w-[50%] p-8 flex flex-col gap-5 justify-center items-center">
-            <div className="big-img">
-              <img
-                src={select}
-                className="h-[24rem] w-[24rem] object-cover object-center transition-opacity duration-300 ease-in-out"
-                alt=""
-              />
+          {isloading ? (
+            <HashLoader
+              color="#70ff00"
+              size={120}
+              cssOverride={{
+                height: "22rem",
+                width: "18rem",
+                top: "2rem",
+                right: "14rem",
+              }}
+              speedMultiplier={4}
+            />
+          ) : (
+            <div className="item-img-cont flex-grow w-[50%] p-8 flex flex-col gap-5 justify-center items-center">
+              <div className="big-img">
+                <img
+                  src={select}
+                  className="h-[24rem] w-[24rem] object-cover object-center transition-opacity duration-300 ease-in-out"
+                  alt={item.name}
+                />
+              </div>
+
+              <div className="sml-imgs flex flex-row gap-5 items-start justify-start">
+                {item.images.map((img, i) => (
+                  <div
+                    key={i}
+                    className={`border p-3 rounded-lg hover:scale-110 hover:bg-gray-300 hover:bg-opacity-20 duration-200 ${
+                      select === img ? "border-gray-400" : "border-transparent"
+                    }`}
+                    onClick={() => setSelect(img)}
+                  >
+                    <img
+                      className="object-cover object-center rounded-lg hover:cursor-pointer w-16 h-12"
+                      src={img}
+                      alt={`Thumbnail ${i + 1}`}
+                    />
+                  </div>
+                ))}
+              </div>
+              <div>
+                <ProductDetails />
+              </div>
             </div>
-            <div className="sml-imgs flex flex-row gap-5 items-start justify-start">
-              {smallImages.map((img, i) => (
-                <div
-                  key={i}
-                  className={`border p-3 rounded-lg  hover:scale-110 hover:bg-gray-300 hover:bg-opacity-20 duration-200 ${
-                    select === img ? "border-gray-400" : "border-transparent"
-                  }`}
-                  onClick={() => setSelect(img)}
-                >
-                  <img
-                    className="object-cover object-center rounded-lg hover:cursor-pointer w-16 h-12"
-                    src={img}
-                    alt=""
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="">
-              <ProductDetails />
-            </div>
-          </div>
+          )}
           <div className="h-full w-[1px] bg-gray-300 bg-opacity-40"></div>
           <div className="item-info sticky w-[50%] p-8">
-            <div className="category text-gray-500 text-sm">Milk</div>
-            <div className="title text-2xl font-semibold">Icecream</div>
-            <div className="price text-lg">Price: $399</div>
+            <div className="category text-gray-500 text-sm">
+              {categoryTitle || "Unknown Category"}
+            </div>
+            <div className="title text-2xl font-bold ">{item.name}</div>
+            <div className="price text-lg">{`Price: $${item.price.toFixed(
+              2
+            )}`}</div>
+
             <button
-              className="h-10 p-2  bg-red-600 text-white rounded-lg cursor-pointer"
-              // onClick={}
+              className="h-10 p-2 mt-4 bg-red-600 text-white rounded-lg cursor-pointer hover:bg-red-700 transition-colors duration-300"
+              onClick={handleAddToCart}
             >
               Add to cart
             </button>
-          
           </div>
         </div>
       </div>

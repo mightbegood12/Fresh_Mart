@@ -1,36 +1,19 @@
+import { categoriesData } from "../categoriesData";
+
 const Footer = () => {
   return (
-    <footer className="text-black p-8 border-t-[1px]">
+    <footer className="text-black mt-8 p-8 border-t-[1px]">
       <div className="max-w-screen-xl mx-auto px-4">
         <h3 className="text-3xl font-bold mb-6 text-center">Fresh Mart</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
           <div>
             <h4 className="text-xl font-semibold mb-4">Categories</h4>
             <ul className="list-none space-y-2">
-              <li>
-                <a
-                  href="/dairy"
-                  className="text-gray-400 hover:text-blue-400 transition"
-                >
-                  Dairy & Other Perishables
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/snacks"
-                  className="text-gray-400 hover:text-blue-400 transition"
-                >
-                  Snacks & Beverages
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/spices"
-                  className="text-gray-400 hover:text-blue-400 transition"
-                >
-                  Spices & Ingredients
-                </a>
-              </li>
+              {categoriesData.map((category, idx) => (
+                <li href="#{idx}" key={idx}>
+                  {category.title}
+                </li>
+              ))}
             </ul>
           </div>
           <div>

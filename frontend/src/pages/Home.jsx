@@ -186,4 +186,4 @@ export default function Home() {
   );
 }
 
-export { categoriesData };
+// export { categoriesData };

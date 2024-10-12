@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 // import { useParams } from "react-router-dom";
 
-import t1 from "/assets/t1.jpg";
-import t2 from "/assets/t2.jpg";
-import t3 from "/assets/t3.jpg";
-import t4 from "/assets/t4.jpg";
-import t6 from "/assets/t6.jpg";
+
 import ProductDetails from "../components/ProductDetails";
 
 export default function ItemView() {
+  const t1 = "/assets/t1.jpg";
+  const t2 = "/assets/t2.jpg";
+  const t3 = "/assets/t3.jpg";
+  const t4 = "/assets/t4.jpg";
+  const t6 = "/assets/t6.jpg";
+  // const {params} = useParams()
+
+
   const [select, setSelect] = useState(t6);
   const smallImages = [t1, t2, t3, t4];
-  // const { productId } = useParams();
+ 
+  
 
   return (
     <>
@@ -57,6 +62,7 @@ export default function ItemView() {
             >
               Add to cart
             </button>
+          
           </div>
         </div>
       </div>

@@ -4,6 +4,10 @@ import "react-multi-carousel/lib/styles.css";
 import Items from "./Items";
 
 export default function Categories({ categoryTitle, items }) {
+  const ArrowFix = (arrowProps) => {
+    const { carouselState, children, rtl, ...restArrowProps } = arrowProps;
+    return <span {...restArrowProps}> {children} </span>;
+  };
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 1800 },
@@ -50,14 +54,18 @@ export default function Categories({ categoryTitle, items }) {
         removeArrowOnDeviceType={["tablet", "mobile"]}
         renderButtonGroupOutside={true}
         customLeftArrow={
-          <button className="absolute left-0 top-1/2 z-10 transform -translate-y-1/2 bg-black bg-opacity-20 rounded-lg hover:bg-opacity-30 text-white p-2">
-            &#10094;
-          </button>
+          <ArrowFix>
+            <button className="absolute left-0 top-1/2 z-10 transform -translate-y-1/2 bg-black bg-opacity-20 rounded-lg hover:bg-opacity-30 text-white p-2">
+              &#10094;
+            </button>
+          </ArrowFix>
         }
         customRightArrow={
-          <button className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-20 text-white p-2 rounded-lg z-20 hover:bg-opacity-30">
-            &#10095;
-          </button>
+          <ArrowFix>
+            <button className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-20 text-white p-2 rounded-lg z-20 hover:bg-opacity-30">
+              &#10095;
+            </button>
+          </ArrowFix>
         }
       >
         {items.map((item) => (

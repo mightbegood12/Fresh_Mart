@@ -85,18 +85,36 @@ export default function ItemView() {
               </div>
             </div>
           )}
-          <div className="h-full w-[1px] bg-gray-300 bg-opacity-40"></div>
-          <div className="item-info sticky w-[50%] p-8">
+          <div className="h-full w-[1px] bg-gray-300 bg-opacity-40">
+            {/* hr line*/}
+          </div>
+
+          <div className="item-info w-[50%] p-8 flex gap-2 flex-col">
             <div className="category text-gray-500 text-sm">
               {categoryTitle || "Unknown Category"}
             </div>
             <div className="title text-2xl font-bold ">{item.name}</div>
-            <div className="price text-lg">{`Price: $${item.price.toFixed(
-              2
-            )}`}</div>
+            <div className="price text-lg">{`$${item.price.toFixed(2)}`}</div>
+            <div className="w-full h-[1px] bg-gray-300 bg-opacity-40">
+              {/* vr line*/}
+            </div>
+            <div className="quantity flex gap-2 flex-col">
+              {" "}
+              <div className="text-sm font-semibold ">Select Unit</div>
+              <div className="quantity-container flex gap-2">
+                {item.unit.map((unit, i) => (
+                  <span
+                    className="text-sm p-2 text-center px-3 rounded-lg border-[1px] cursor-pointer border-gray-500 border-opacity-30 hover:scale-110 hover:bg-gray-300 hover:bg-opacity-20 duration-200"
+                    key={i}
+                  >
+                    {unit}
+                  </span>
+                ))}
+              </div>
+            </div>
 
             <button
-              className="h-10 p-2 mt-4 bg-red-600 text-white rounded-lg cursor-pointer hover:bg-red-700 transition-colors duration-300"
+              className="h-10 w-fit p-2 mt-4 bg-red-600 text-white rounded-lg cursor-pointer hover:bg-red-700 transition-colors duration-300"
               onClick={handleAddToCart}
             >
               Add to cart

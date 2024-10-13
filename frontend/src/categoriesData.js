@@ -6,6 +6,7 @@ export const categoriesData = [
         id: 1,
         name: "Milk",
         price: 2.99,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Milk+2",
@@ -17,6 +18,7 @@ export const categoriesData = [
         id: 2,
         name: "Cheese",
         price: 4.99,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Cheese+2",
@@ -28,6 +30,7 @@ export const categoriesData = [
         id: 3,
         name: "Yogurt",
         price: 1.99,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Yogurt+2",
@@ -39,6 +42,7 @@ export const categoriesData = [
         id: 4,
         name: "Butter",
         price: 3.49,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Butter+2",
@@ -83,6 +87,7 @@ export const categoriesData = [
         id: 8,
         name: "Cottage Cheese",
         price: 2.89,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=CottageCheese+2",

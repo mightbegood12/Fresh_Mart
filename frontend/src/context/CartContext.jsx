@@ -1,25 +1,33 @@
-import React, { createContext, useState, useContext } from 'react';
-const CartContext = createContext()
+import React, { createContext, useState, useContext } from "react";
 
-export const  useCart = () => {
-    return useContext(CartContext)
-}
+const CartContext = createContext();
 
-export const CartProvider = ({children}) => {
-    const [cartItems, setCartItems] = useState([]);
+export const useCart = () => {
+  return useContext(CartContext);
+};
 
-    const addToCart = (item) => {
-        setCartItems((prevItems) => [...prevItems,item])
-    }
+export const CartProvider = ({ children }) => {
+  const [cartItems, setCartItems] = useState([]);
 
-    const removeFromCart = (itemId) => {
-        setCartItems((prevItems) => prevItems.filter(item => item.id !== itemId))
-    }
+  const addToCart = (item) => {
+    setCartItems((prevItems) => [...prevItems, item]);
+  };
 
-    return(
-        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart}}>
-            {children}
+  const removeFromCart = (id) => {
+    setCartItems((prevItems) => {
+      const itemIndex = prevItems.findIndex((cartItem) => cartItem.id === id);
 
-        </CartContext.Provider>
-    )
-}
+      if (itemIndex === -1) return prevItems; // If item not found, return the cart as is
+
+      const updatedItems = [...prevItems];
+      updatedItems.splice(itemIndex, 1); // Remove the item at the found index
+      return updatedItems;
+    });
+  };
+
+  return (
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+      {children}
+    </CartContext.Provider>
+  );
+};

@@ -1,6 +1,7 @@
-// App.jsx
-import Home from "./pages/Home";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { CartProvider } from "./context/CartContext"; // Import your CartProvider
+import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Profile from "./pages/Profile";
@@ -11,11 +12,13 @@ import ItemView from "./pages/ItemView";
 
 function App() {
   return (
-    <BrowserRouter>
-      <header>
-        <Navbar />
-      </header>
-      <main className="">
+    <CartProvider>
+      {" "}
+      {/* Wrap everything in CartProvider */}
+      <BrowserRouter>
+        <header>
+          <Navbar />
+        </header>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sign-in" element={<SignIn />} />
@@ -24,11 +27,11 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/item-view/:id" element={<ItemView />} />
         </Routes>
-      </main>
-      <footer>
-        <Footer />
-      </footer>
-    </BrowserRouter>
+        <footer>
+          <Footer />
+        </footer>
+      </BrowserRouter>
+    </CartProvider>
   );
 }
 

@@ -13,7 +13,6 @@ import ItemView from "./pages/ItemView";
 function App() {
   return (
     <CartProvider>
-      {" "}
       {/* Wrap everything in CartProvider */}
       <BrowserRouter>
         <header>

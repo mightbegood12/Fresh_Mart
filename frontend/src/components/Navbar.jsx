@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <>
       <main className="border p-2">
-        <nav className=" sticky flex flex-row items-center justify-center gap-24 ">
+        <nav className="flex flex-row items-center justify-center gap-24 ">
           <Link
             to="/"
             className="text-red-700 text-2xl h-12 m-0 p-2 text-center"
@@ -42,7 +42,7 @@ const Navbar = () => {
           <div className="flex flex-row flex-shrink-0 flex-grow-0 ">
             <Link
               to="/cart"
-              className="h-10 min-w-36 p-2 bg-red-600 text-white rounded-lg cursor-pointer"
+              className="h-10 p-2 bg-red-600 text-white rounded-lg cursor-pointer"
             >
               <div className="relative flex flex-row flex-grow-0 item-center">
                 <img
@@ -50,9 +50,12 @@ const Navbar = () => {
                   src={CartLogo}
                   alt="cart icon"
                 />
-                <div className="pl-8">
-                  My Cart{" "}
-                  {cartItems.length === 0 ? "" : `(${cartItems.length})`}
+                <div className="pl-8 flex flex-col">
+                  {cartItems.length === 0 ? (
+                    "My Cart"
+                  ) : (
+                    <div> {cartItems.length} items</div>
+                  )}
                 </div>
               </div>
             </Link>

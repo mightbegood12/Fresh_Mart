@@ -1,7 +1,7 @@
 import ImageSlicer from "../components/ImageSlicer";
 import Categories from "../components/Categories";
-import { categoriesData } from "../categoriesData";
 import EasyAccess from "../components/EasyAccess";
+import { categoriesData } from "../categoriesData";
 
 export default function Home() {
   return (
@@ -10,7 +10,6 @@ export default function Home() {
       <ImageSlicer />
       {categoriesData.map((category, index) => (
         <Categories
-          id={category.title}
           key={index}
           categoryTitle={category.title}
           items={category.items}

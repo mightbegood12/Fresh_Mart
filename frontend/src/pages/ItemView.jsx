@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import HashLoader from "react-spinners/HashLoader";
 import ProductDetails from "../components/ProductDetails";
-
+import DynamicButton from "../components/DynamicButton";
+import cacheImages from "../Utils/ImageLoader";
 import { useLocation } from "react-router-dom";
 
 export default function ItemView() {
@@ -9,30 +10,19 @@ export default function ItemView() {
   const { item, categoryTitle } = state || {}; // Destructure item and category title from state
 
   const [isloading, setIsloading] = useState(true);
-  const [select, setSelect] = useState(
-    item?.images[0] || "/assets/placeholder.png"
-  ); // Use optional chaining
+  const [select, setSelect] = useState(item.images[0]);
 
   useEffect(() => {
-    if (item?.images) {
-      cacheImages(item.images);
-    }
-  }, [item?.images]);
-
-  const cacheImages = (srcArray) => {
-    const promises = srcArray.map((src) => {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = src;
-        img.onload = resolve;
-        img.onerror = reject;
+    cacheImages(item.images)
+      .then(() => {
+        console.log("All images loaded successfully!");
+        setIsloading(false);
+      })
+      .catch(() => {
+        console.error("Error loading images");
+        setIsloading(false);
       });
-    });
-
-    Promise.all(promises)
-      .then(() => setIsloading(false))
-      .catch(() => setIsloading(false));
-  };
+  }, [item.images]);
 
   return (
     <div className="flex h-auto justify-center">
@@ -113,6 +103,7 @@ export default function ItemView() {
               )}
             </div>
           </div>
+          <DynamicButton item={item}></DynamicButton>
         </div>
       </div>
     </div>

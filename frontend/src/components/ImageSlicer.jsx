@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import HashLoader from "react-spinners/HashLoader";
+import cacheImages from "../Utils/ImageLoader";
 
 import Image1 from "/assets/img1.jpg";
 import Image2 from "/assets/img2.jpg";
@@ -16,23 +17,14 @@ const ImageSlicer = () => {
   const [isloading, setIsloading] = useState(true);
 
   useEffect(() => {
-    cacheImages(images);
-  }, []);
-
-  const cacheImages = (srcArray) => {
-    const promises = srcArray.map((src) => {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = src.src;
-        img.onload = resolve;
-        img.onerror = reject;
+    cacheImages(images)
+      .then(() => {
+        setIsloading(false);
+      })
+      .catch(() => {
+        setIsloading(false);
       });
-    });
-
-    Promise.all(promises)
-      .then(() => setIsloading(false))
-      .catch(() => setIsloading(false));
-  };
+  }, []);
 
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import HashLoader from "react-spinners/HashLoader";
 import ProductDetails from "../components/ProductDetails";
 import DynamicButton from "../components/DynamicButton";
-import cacheImages from "../Utils/ImageLoader";
+import cacheImages from "../Utils/imageLoader";
 import { useLocation } from "react-router-dom";
 
 export default function ItemView() {
@@ -11,6 +11,7 @@ export default function ItemView() {
 
   const [isloading, setIsloading] = useState(true);
   const [select, setSelect] = useState(item.images[0]);
+  const [unit, selectUnit] = useState(0);
 
   useEffect(() => {
     cacheImages(item.images)
@@ -90,8 +91,9 @@ export default function ItemView() {
               {item.unit ? (
                 item.unit.map((unit, i) => (
                   <span
-                    className="text-sm h-auto p-2 text-center px-3 rounded-lg border-[1px] cursor-pointer border-gray-500 border-opacity-30 hover:scale-110 hover:bg-gray-300 hover:bg-opacity-20 duration-200"
+                    className="text-sm focus:bg-black h-auto p-2 text-center px-3 rounded-lg border-[1px] cursor-pointer border-gray-500 border-opacity-30 hover:scale-110 hover:bg-gray-300 hover:bg-opacity-20 duration-200"
                     key={i}
+                    onClick={() => selectUnit(unit)}
                   >
                     {unit}
                   </span>
@@ -103,7 +105,7 @@ export default function ItemView() {
               )}
             </div>
           </div>
-          <DynamicButton item={item}></DynamicButton>
+          <DynamicButton item={item} selectedUnit={unit}></DynamicButton>
         </div>
       </div>
     </div>

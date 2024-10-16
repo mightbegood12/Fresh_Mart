@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import HashLoader from "react-spinners/HashLoader";
-import cacheImages from "../Utils/ImageLoader";
+import cacheImages from "../Utils/imageLoader";
 
 import Image1 from "/assets/img1.jpg";
 import Image2 from "/assets/img2.jpg";

@@ -1,12 +1,12 @@
 import React from "react";
 import { useCart } from "../context/CartContext"; // Import the cart context
 
-export default function DynamicButton({ item }) {
+export default function DynamicButton({ item, selectedUnit }) {
   const { cartItems, addToCart, removeFromCart } = useCart(); // Use cart context
 
   const handleAddToCart = (e) => {
     // e.stopPropagation();
-    addToCart(item); // Directly add item to cart using the context function
+    addToCart({ ...item, selectedUnit: selectedUnit }); // Directly add item to cart using the context function
   };
 
   const handleRemoveFromCart = () => {
@@ -27,9 +27,9 @@ export default function DynamicButton({ item }) {
             -
           </button>
           <div className="text-sm w-[20px] text-center">
-            {console.log(cartItems)}
+            {/* {console.log(cartItems)}
             {console.log("Item in cart")}
-            {console.log(itemInCart)}{" "}
+            {console.log(itemInCart)}{" "} */}
             {/* Display the quantity of the specific item */}
             {itemInCart.length}
           </div>

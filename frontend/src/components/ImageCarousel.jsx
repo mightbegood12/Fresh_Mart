@@ -12,7 +12,7 @@ const images = [
   { src: Image3, alt: "image#3" },
 ];
 
-const ImageSlicer = () => {
+const ImageCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isloading, setIsloading] = useState(true);
 
@@ -52,7 +52,7 @@ const ImageSlicer = () => {
   return (
     <section
       aria-label="Grocery Carousel"
-      className="flex items-center justify-center  overflow-hidden"
+      className="flex items-center justify-center drop-shadow-md overflow-hidden"
     >
       {isloading ? (
         <HashLoader
@@ -68,13 +68,13 @@ const ImageSlicer = () => {
         <div className="carousel relative max-h-96 max-w-6xl overflow-hidden">
           <button
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-20 text-white p-2 rounded-lg z-20 hover:bg-opacity-30"
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-5 transition-bg-opacity duration-500 text-white p-2 rounded-lg z-20 hover:bg-opacity-30"
           >
             &#10594;
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-20 text-white p-2 rounded-lg z-20 hover:bg-opacity-30"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-5 transition-bg-opacity duration-500 text-white p-2 rounded-lg z-20 hover:bg-opacity-30"
           >
             &#10596;
           </button>
@@ -105,4 +105,4 @@ const ImageSlicer = () => {
   );
 };
 
-export default ImageSlicer;
+export default ImageCarousel;

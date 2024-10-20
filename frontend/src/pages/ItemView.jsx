@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import HashLoader from "react-spinners/HashLoader";
 import ProductDetails from "../components/ProductDetails";
 import DynamicButton from "../components/DynamicButton";
-import cacheImages from "../Utils/imageLoader";
 import { useLocation } from "react-router-dom";
 
 export default function ItemView() {
@@ -10,20 +9,30 @@ export default function ItemView() {
   const { item, categoryTitle } = state || {}; // Destructure item and category title from state
 
   const [isloading, setIsloading] = useState(true);
-  const [select, setSelect] = useState(item.images[0]);
-  const [unit, selectUnit] = useState(0);
+  const [select, setSelect] = useState(
+    item?.images[0] || "/assets/placeholder.png"
+  ); // Use optional chaining
 
   useEffect(() => {
-    cacheImages(item.images)
-      .then(() => {
-        console.log("All images loaded successfully!");
-        setIsloading(false);
-      })
-      .catch(() => {
-        console.error("Error loading images");
-        setIsloading(false);
+    if (item?.images) {
+      cacheImages(item.images);
+    }
+  }, [item?.images]);
+
+  const cacheImages = (srcArray) => {
+    const promises = srcArray.map((src) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = resolve;
+        img.onerror = reject;
       });
-  }, [item.images]);
+    });
+
+    Promise.all(promises)
+      .then(() => setIsloading(false))
+      .catch(() => setIsloading(false));
+  };
 
   return (
     <div className="flex h-auto justify-center">
@@ -91,9 +100,8 @@ export default function ItemView() {
               {item.unit ? (
                 item.unit.map((unit, i) => (
                   <span
-                    className="text-sm focus:bg-black h-auto p-2 text-center px-3 rounded-lg border-[1px] cursor-pointer border-gray-500 border-opacity-30 hover:scale-110 hover:bg-gray-300 hover:bg-opacity-20 duration-200"
+                    className="text-sm h-auto p-2 text-center px-3 rounded-lg border-[1px] cursor-pointer border-gray-500 border-opacity-30 hover:scale-110 hover:bg-gray-300 hover:bg-opacity-20 duration-200"
                     key={i}
-                    onClick={() => selectUnit(unit)}
                   >
                     {unit}
                   </span>
@@ -104,8 +112,8 @@ export default function ItemView() {
                 </div>
               )}
             </div>
+            <DynamicButton item={item} />
           </div>
-          <DynamicButton item={item} selectedUnit={unit}></DynamicButton>
         </div>
       </div>
     </div>

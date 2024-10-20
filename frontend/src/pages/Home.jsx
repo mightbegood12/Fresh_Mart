@@ -1,13 +1,12 @@
-import ImageSlicer from "../components/ImageSlicer";
+import ImageCarousel from "../components/ImageCarousel";
 import Categories from "../components/Categories";
 import EasyAccess from "../components/EasyAccess";
-import { categoriesData } from "../categoriesData";
 
-export default function Home() {
+export default function Home({ categoriesData }) {
   return (
     <div className="min-h-screen mb-12 flex flex-col gap-2">
       <EasyAccess />
-      <ImageSlicer />
+      <ImageCarousel />
       {categoriesData.map((category, index) => (
         <Categories
           key={index}

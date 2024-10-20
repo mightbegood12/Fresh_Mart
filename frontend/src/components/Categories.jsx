@@ -27,7 +27,7 @@ export default function Categories({ categoryTitle, items }) {
     },
     mobile: {
       breakpoint: { max: 1200, min: 420 },
-      items: 3,
+      items: 2,
     },
     sml_mobile: {
       breakpoint: { max: 420, min: 0 },
@@ -55,14 +55,14 @@ export default function Categories({ categoryTitle, items }) {
         renderButtonGroupOutside={true}
         customLeftArrow={
           <ArrowFix>
-            <button className="absolute left-0 top-1/2 z-10 transform -translate-y-1/2 bg-black bg-opacity-20 rounded-lg hover:bg-opacity-30 text-white p-2">
+            <button className="absolute left-0 top-1/2 z-10 transform -translate-y-1/2 bg-black bg-opacity-5 transition-bg-opacity duration-500 rounded-lg hover:bg-opacity-30 text-white p-2">
               &#10094;
             </button>
           </ArrowFix>
         }
         customRightArrow={
           <ArrowFix>
-            <button className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-20 text-white p-2 rounded-lg z-20 hover:bg-opacity-30">
+            <button className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-5 transition-bg-opacity duration-500 text-white p-2 rounded-lg z-20 hover:bg-opacity-30">
               &#10095;
             </button>
           </ArrowFix>

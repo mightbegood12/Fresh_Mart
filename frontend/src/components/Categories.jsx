@@ -22,15 +22,19 @@ export default function Categories({ categoryTitle, items }) {
       items: 6,
     },
     tablet: {
-      breakpoint: { max: 1200, min: 400 },
+      breakpoint: { max: 1200, min: 800 },
       items: 4,
     },
     mobile: {
-      breakpoint: { max: 1200, min: 420 },
+      breakpoint: { max: 800, min: 620 },
+      items: 3,
+    },
+    md_mobile: {
+      breakpoint: { max: 620, min: 430 },
       items: 2,
     },
     sml_mobile: {
-      breakpoint: { max: 420, min: 0 },
+      breakpoint: { max: 430, min: 0 },
       items: 1,
     },
   };

@@ -35,7 +35,7 @@ export default function EasyAccess() {
     };
   }, []);
   return (
-    <div className="flex gap-3 justify-center items-center text-sm text-gray-500 my-3">
+    <div className="hidden lg:flex gap-3 justify-center items-center text-sm text-gray-500 my-3">
       <Link to="/">Vegetable & Fruits</Link>
       <Link>Dairy & Breakfast</Link>
       <Link>Munchies</Link>

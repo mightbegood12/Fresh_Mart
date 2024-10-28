@@ -1,6 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { CartProvider } from "./context/CartContext";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
@@ -48,13 +47,7 @@ function AppContent() {
 
 // App component with routing and CartContext provider
 function App() {
-  return (
-    <CartProvider>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
-    </CartProvider>
-  );
+  return <AppContent />;
 }
 
 export default App;

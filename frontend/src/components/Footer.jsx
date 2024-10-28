@@ -5,10 +5,10 @@ const Footer = () => {
     <footer className="text-black p-8 border-t-[1px]">
       <div className="max-w-screen-xl mx-auto px-4">
         <h3 className="text-3xl font-bold mb-6 text-center">Fresh Mart</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
+        <div className="hidden lg:grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
           <div>
             <h4 className="text-xl font-semibold mb-4">Categories</h4>
-            <ul className="list-none space-y-2">
+            <ul className="list-none space-y-2 text-gray-400">
               {categoriesData.map((category, idx) => (
                 <li href="#{idx}" key={idx}>
                   {category.title}

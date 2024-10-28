@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function SignIn() {
   const [isSigned, setIsSigned] = useState("Sign Up");
   return (
-    <div className="flex flex-row gap-0 h-screen ">
+    <div className="block md:flex flex-row gap-0 h-screen ">
       <Link
         to="/"
         className="absolute z-20 h-[2rem] w-[2rem] px-2 text-lg left-4 top-4 text-white  bg-black bg-opacity-15 rounded-full"
@@ -23,25 +23,25 @@ export default function SignIn() {
           <input
             type="text"
             placeholder="Name"
-            className="w-[50%] border border-gray-700 px-3 py-2 outline-none"
+            className="w-[50%] min-w-[16rem] border border-gray-700 px-3 py-2 outline-none"
             required
           />
         )}
 
         <input
           type="email"
-          placeholder="EmailId"
-          className="w-[50%] border border-gray-700 px-3 py-2 outline-none"
+          placeholder="Email Id"
+          className="w-[50%] min-w-[16rem] border border-gray-700 px-3 py-2 outline-none"
           required
         />
         <input
           type="password"
           placeholder="Password"
-          className="w-[50%] border border-gray-700 px-3 py-2 outline-none"
+          className="w-[50%] min-w-[16rem] border border-gray-700 px-3 py-2 outline-none"
           required
         />
 
-        <div className=" w-[50%] flex justify-between">
+        <div className="w-[50%] min-w-[16rem] flex justify-between">
           <p className="cursor-pointer">Forget Password?</p>
           {isSigned === "Login" ? (
             <p
@@ -58,7 +58,7 @@ export default function SignIn() {
         </div>
       </form>
       <img
-        className=" object-cover w-2/4 object-center"
+        className="hidden md:block object-cover w-2/4 object-center"
         src={signinPoster}
         alt=""
       />

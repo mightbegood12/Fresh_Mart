@@ -1,15 +1,18 @@
-const scrollToTop = () => {
-  window.scrollTo(0, 0);
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+const ScrollToTop = ({ children }) => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, [pathname]);
+
+  return children || null;
 };
 
-// Handle clicks on the overall link, but check if it comes from the button
-const handleLinkClick = (e) => {
-  // If the click is within the DynamicButton, prevent navigation
-  if (e.target.closest(".dynamic-button")) {
-    e.preventDefault();
-  } else {
-    scrollToTop(); // Only scroll to top if it's not a button click
-  }
-};
-
-export default handleLinkClick;
+export default ScrollToTop;

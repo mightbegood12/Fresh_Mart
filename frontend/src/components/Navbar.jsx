@@ -2,21 +2,22 @@ import SearchLogo from "/assets/search.svg";
 import CartLogo from "/assets/cart.svg";
 import MenuIcon from "/assets/menu.svg";
 import BackIcon from "/assets/back.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext"; // Use the custom hook
 import { useState } from "react";
-// import handleLinkClick from "../Utils/ScrollToTop";
 
 const Navbar = () => {
   const { cartItems } = useCart(); // Access cart items
   const [visible, setVisible] = useState(false);
+
+  const location = useLocation();
 
   return (
     <main className="border p-2">
       <nav className="flex flex-row items-center justify-between md:justify-around">
         <NavLink
           to="/"
-          className="text-red-700 text-2xl lg:text-3xl h-12 w-max m-0 p-2 text-center"
+          className=" text-2xl lg:text-3xl h-12 w-max m-0 p-2 text-center text-red-700"
         >
           Fresh <span className="text-orange-700">Mart</span>
         </NavLink>
@@ -116,28 +117,36 @@ const Navbar = () => {
                 />
               </NavLink>
               <NavLink
-                className="border-b-[1px] w-full text-center py-2"
+                className={`${
+                  location.pathname === "/" ? "here" : ""
+                } border-b-[1px] w-full text-center py-2`}
                 onClick={() => setVisible(false)}
                 to="/"
               >
                 Home
               </NavLink>
               <NavLink
-                className="border-b-[1px] w-full text-center py-2"
+                className={`${
+                  location.pathname === "/location" ? "here" : ""
+                } border-b-[1px] w-full text-center py-2`}
                 onClick={() => setVisible(false)}
                 to="/"
               >
                 Location
               </NavLink>
               <NavLink
-                className="border-b-[1px] w-full text-center py-2"
+                className={`${
+                  location.pathname === "/cart" ? "here" : ""
+                } border-b-[1px] w-full text-center py-2`}
                 onClick={() => setVisible(false)}
                 to="/cart"
               >
                 Cart
               </NavLink>
               <NavLink
-                className="border-b-[1px] w-full text-center py-2"
+                className={`${
+                  location.pathname === "/sign-in" ? "here" : ""
+                } border-b-[1px] w-full text-center py-2`}
                 onClick={() => setVisible(false)}
                 to="/sign-in"
               >

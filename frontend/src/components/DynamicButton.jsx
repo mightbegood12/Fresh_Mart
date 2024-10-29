@@ -6,7 +6,8 @@ export default function DynamicButton({ item, selectedUnit }) {
 
   const handleAddToCart = (e) => {
     // e.stopPropagation();
-    addToCart({ ...item, selectedUnit: selectedUnit }); // Directly add item to cart using the context function
+    addToCart({ ...item, selectedUnit: selectedUnit });
+    // Directly add item to cart using the context function
   };
 
   const handleRemoveFromCart = () => {
@@ -27,7 +28,7 @@ export default function DynamicButton({ item, selectedUnit }) {
             -
           </button>
           <div className="text-sm w-[20px] text-center">
-            {itemInCart.length}
+            {item.quantity ? item.quantity : itemInCart.length}
           </div>
           <button
             className="h-10 w-[20px] text-[14px] py-[2px] border-2 text-white bg-red-600  hover:bg-red-500 ease-in duration-150 border-red-600 border-opacity-85 rounded-lg text-center cursor-pointer"

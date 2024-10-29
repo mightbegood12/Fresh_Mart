@@ -5,11 +5,12 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
+import CartItems from "./components/CartItems";
 import Cart from "./pages/Cart";
 import Footer from "./components/Footer";
 import ItemView from "./pages/ItemView";
 import { categoriesData } from "./categoriesData";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // Main content of the app with Navbar control
@@ -17,21 +18,21 @@ function AppContent() {
   const location = useLocation();
 
   // Define the routes where you don't want to render the Navbar
-  const hideNavbarRoutes = ["/sign-in", "/sign-up"];
+  const hideRoutes = ["/sign-in", "/sign-up"];
 
   // Check if the current route matches any of the routes in hideNavbarRoutes
-  const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
+  const shouldHide = hideRoutes.includes(location.pathname);
+  const shouldHideCart = location.pathname === "/cart";
 
   return (
     <>
       <ToastContainer />
       {/* Conditionally render Navbar */}
-      {!shouldHideNavbar && (
+      {!shouldHide && (
         <header className="sticky top-0 z-50 bg-white">
           <Navbar />
         </header>
       )}
-
       <Routes>
         <Route path="/" element={<Home categoriesData={categoriesData} />} />
         <Route path="/sign-in" element={<SignIn />} />
@@ -44,6 +45,11 @@ function AppContent() {
       <footer>
         <Footer />
       </footer>
+      {!shouldHide && !shouldHideCart && (
+        <div className="sticky bottom-5 z-40">
+          <CartItems />
+        </div>
+      )}
     </>
   );
 }

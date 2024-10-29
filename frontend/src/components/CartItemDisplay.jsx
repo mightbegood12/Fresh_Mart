@@ -15,7 +15,9 @@ const CartItemDisplay = ({ groupedItems }) => {
         <div className="info flex flex-col gap-1 items-start justify-between">
           <span className="font-semibold mt-1">{item.name}</span>
           <span className="text-gray-500">Quantity: {item.quantity}</span>
-          <span className="text-gray-500">Unit: {item.selectedUnit}</span>
+          <span className="text-gray-500">
+            Unit: {item.selectedUnit ? item.selectedUnit : item.unit[0]}
+          </span>
           <div className="price-add-btn max-w-[100%] flex flex-row items-center gap-5">
             <span className="text-green-600">{`${currency}${item.price.toFixed(
               2

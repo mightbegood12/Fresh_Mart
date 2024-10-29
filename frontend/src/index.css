@@ -42,3 +42,10 @@ body {
   min-width: 120px; /* Set this to your desired item width */
   flex-shrink: 0; /* Prevent shrinking */
 }
+
+@media screen and (max-width: 768px) {
+  a.here {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+  }
+}

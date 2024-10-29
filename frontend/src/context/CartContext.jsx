@@ -1,5 +1,5 @@
 import { createContext, useState, useContext } from "react";
-import { toast } from "react-toastify";
+import { toast, Flip } from "react-toastify";
 
 const CartContext = createContext();
 
@@ -14,11 +14,17 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (item) => {
     if (!item.selectedUnit) {
-      toast.error("Please select a unit", {
+      toast.info("Selected Default Unit", {
         position: "top-center",
         autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Flip,
       });
-      return;
     }
     setCartItems((prevItems) => [...prevItems, item]);
   };

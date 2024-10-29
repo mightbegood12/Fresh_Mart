@@ -13,6 +13,15 @@ export const categoriesData = [
           "https://via.placeholder.com/120x120.png?text=Milk+3",
           "https://via.placeholder.com/120x120.png?text=Milk+4",
         ],
+        productDescription: {
+          title: "Farm Milk",
+          healthBenefits: [
+            "Good for Gut.",
+            "Helps in Digestion.",
+            "Helps in Immunity.",
+          ],
+          countryOfOrigin: "India",
+        },
       },
       {
         id: 2,
@@ -247,6 +256,7 @@ export const categoriesData = [
           "https://via.placeholder.com/120x120.png?text=Oregano+3",
           "https://via.placeholder.com/120x120.png?text=Oregano+4",
         ],
+        unit: [],
       },
       {
         id: 22,

@@ -9,6 +9,8 @@ import Cart from "./pages/Cart";
 import Footer from "./components/Footer";
 import ItemView from "./pages/ItemView";
 import { categoriesData } from "./categoriesData";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Main content of the app with Navbar control
 function AppContent() {
@@ -22,6 +24,7 @@ function AppContent() {
 
   return (
     <>
+      <ToastContainer />
       {/* Conditionally render Navbar */}
       {!shouldHideNavbar && (
         <header className="sticky top-0 z-50 bg-white">

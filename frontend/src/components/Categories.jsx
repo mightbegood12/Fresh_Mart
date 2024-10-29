@@ -30,17 +30,17 @@ export default function Categories({ categoryTitle, items }) {
       items: 3,
     },
     md_mobile: {
-      breakpoint: { max: 620, min: 430 },
+      breakpoint: { max: 620, min: 300 },
       items: 2,
     },
     sml_mobile: {
-      breakpoint: { max: 430, min: 0 },
+      breakpoint: { max: 300, min: 0 },
       items: 1,
     },
   };
   return (
-    <div className="carousel mx-[10%] flex flex-col gap-1 mt-8">
-      <div className="text-2xl leading-8 font-semibold text-slate-700">
+    <div className="carousel mx-[10%] flex flex-col gap-1 mt-6 md:mt-8">
+      <div className="text-xl md:text-2xl font-semibold text-slate-700">
         {categoryTitle}
       </div>
       <Carousel

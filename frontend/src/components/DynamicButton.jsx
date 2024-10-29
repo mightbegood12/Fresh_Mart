@@ -19,7 +19,7 @@ export default function DynamicButton({ item, selectedUnit }) {
   return (
     <>
       {itemInCart.length > 0 ? (
-        <div className="h-10 max-w-[68px] flex flex-none justify-center items-center gap-[4px] bg-red-600 text-white rounded-lg">
+        <div className="h-10 w-14  md:w-[68px] flex flex-none justify-center items-center gap-[4px] bg-red-600 text-white rounded-lg">
           <button
             className="h-10 w-[20px] text-[14px] py-[2px] border-2 text-white bg-red-600  hover:bg-red-500 ease-in duration-150 border-red-600 border-opacity-85 rounded-lg text-center cursor-pointer"
             onClick={handleRemoveFromCart}
@@ -27,10 +27,6 @@ export default function DynamicButton({ item, selectedUnit }) {
             -
           </button>
           <div className="text-sm w-[20px] text-center">
-            {/* {console.log(cartItems)}
-            {console.log("Item in cart")}
-            {console.log(itemInCart)}{" "} */}
-            {/* Display the quantity of the specific item */}
             {itemInCart.length}
           </div>
           <button
@@ -42,7 +38,7 @@ export default function DynamicButton({ item, selectedUnit }) {
         </div>
       ) : (
         <button
-          className="h-10 w-[68px] flex justify-center items-center gap-[3px] bg-red-600  hover:bg-red-500 text-white rounded-lg"
+          className="h-10 w-14  md:w-[68px] flex justify-center items-center gap-[3px] bg-red-600  hover:bg-red-500 text-white rounded-lg"
           onClick={handleAddToCart}
         >
           Add

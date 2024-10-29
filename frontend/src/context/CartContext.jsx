@@ -1,6 +1,9 @@
-import React, { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext } from "react";
+import { toast } from "react-toastify";
 
 const CartContext = createContext();
+
+export const currency = "₹";
 
 export const useCart = () => {
   return useContext(CartContext);
@@ -10,6 +13,13 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (item) => {
+    if (!item.selectedUnit) {
+      toast.error("Please select a unit", {
+        position: "top-center",
+        autoClose: 2000,
+      });
+      return;
+    }
     setCartItems((prevItems) => [...prevItems, item]);
   };
 
@@ -26,7 +36,9 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{ cartItems, addToCart, removeFromCart, currency }}
+    >
       {children}
     </CartContext.Provider>
   );

@@ -3,15 +3,17 @@ import HashLoader from "react-spinners/HashLoader";
 import ProductDetails from "../components/ProductDetails";
 import DynamicButton from "../components/DynamicButton";
 import { useLocation } from "react-router-dom";
+import { currency } from "../context/CartContext";
 
 export default function ItemView() {
   const { state } = useLocation();
   const { item, categoryTitle } = state || {}; // Destructure item and category title from state
+  const [selectedUnit, setSelectedUnit] = useState(item?.unit[0]);
 
   const [isloading, setIsloading] = useState(true);
   const [select, setSelect] = useState(
     item?.images[0] || "/assets/placeholder.png"
-  ); // Use optional chaining
+  );
 
   useEffect(() => {
     if (item?.images) {
@@ -35,8 +37,8 @@ export default function ItemView() {
   };
 
   return (
-    <div className="flex h-auto justify-center">
-      <div className="wrapper flex m-2 p-2 flex-row justify-between gap-8">
+    <div className="h-auto justify-center">
+      <div className="wrapper flex m-2 p-2 flex-col md:flex-row justify-between md:gap-8">
         {isloading ? (
           <HashLoader
             color="#70ff00"
@@ -50,16 +52,16 @@ export default function ItemView() {
             speedMultiplier={4}
           />
         ) : (
-          <div className="item-img-cont flex-grow w-[50%] p-8 flex flex-col gap-5 justify-center items-center">
+          <div className="item-img-cont w-full md:w-[50%] p-4 md:p-8 flex flex-col gap-5 justify-center items-center">
             <div className="big-img">
               <img
                 src={select}
-                className="h-[24rem] w-[24rem] object-cover object-center transition-opacity duration-300 ease-in-out"
+                className="min-h-[18rem] md:min-h-[24rem] object-cover object-center transition-opacity duration-300 ease-in-out"
                 alt={item.name}
               />
             </div>
 
-            <div className="sml-imgs flex flex-row gap-5 items-start justify-start">
+            <div className="sml-imgs flex flex-row gap-2 md:gap-5 items-start justify-start">
               {item.images.map((img, i) => (
                 <div
                   key={i}
@@ -69,42 +71,49 @@ export default function ItemView() {
                   onClick={() => setSelect(img)}
                 >
                   <img
-                    className="object-cover object-center rounded-lg hover:cursor-pointer w-16 h-12"
+                    className="object-cover object-center rounded-lg hover:cursor-pointer max-w-16 max-h-12"
                     src={img}
-                    alt={`Thumbnail ${i + 1}`}
+                    alt="img"
                   />
                 </div>
               ))}
             </div>
-            <div>
-              <ProductDetails />
+            <div className="hidden md:flex">
+              <ProductDetails productDescription={item.productDescription} />
             </div>
           </div>
         )}
-        <div className="h-full w-[1px] bg-gray-300 bg-opacity-40">
+        <div className="h-full w-[1px] bg-gray-400 bg-opacity-40">
           {/* vr line */}
         </div>
 
-        <div className="item-info w-[50%] p-8 flex gap-2 flex-col">
+        <div className="item-info w-max md:w-[50%] p-8 flex gap-2 flex-col">
           <div className="category text-gray-500 text-sm">
             {categoryTitle || "Unknown Category"}
           </div>
           <div className="title text-2xl font-bold ">{item.name}</div>
-          <div className="price text-lg">{`$${item.price.toFixed(2)}`}</div>
+          <div className="price text-lg">{`${currency}${item.price.toFixed(
+            2
+          )}`}</div>
           <div className="w-full h-[1px] bg-gray-300 bg-opacity-40">
             {/* hr line */}
           </div>
           <div className="quantity flex gap-2 flex-col">
             <div className="text-sm font-semibold">Select Unit</div>
-            <div className="quantity-container flex gap-2">
-              {item.unit ? (
+            <div className="quantity-container flex gap-2 mb-2">
+              {item.unit.length > 0 ? (
                 item.unit.map((unit, i) => (
-                  <span
-                    className="text-sm h-auto p-2 text-center px-3 rounded-lg border-[1px] cursor-pointer border-gray-500 border-opacity-30 hover:scale-110 hover:bg-gray-300 hover:bg-opacity-20 duration-200"
+                  <button
+                    className={`text-sm h-auto p-2 text-center px-3 rounded-lg border-[1px] cursor-pointer border-gray-500 border-opacity-30 hover:scale-110  hover:bg-orange-300 hover:bg-opacity-20 duration-200 ${
+                      selectedUnit === unit
+                        ? "scale-110 bg-orange-300 bg-opacity-40"
+                        : ""
+                    }`}
+                    onClick={() => setSelectedUnit(unit)}
                     key={i}
                   >
                     {unit}
-                  </span>
+                  </button>
                 ))
               ) : (
                 <div className="text-sm h-auto p-2 text-center px-3 rounded-lg border-[1px]">
@@ -112,7 +121,7 @@ export default function ItemView() {
                 </div>
               )}
             </div>
-            <DynamicButton item={item} />
+            <DynamicButton item={item} selectedUnit={selectedUnit} />
           </div>
         </div>
       </div>

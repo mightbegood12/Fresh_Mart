@@ -1,18 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import signinPoster from "/assets/poster.jpg";
 import { Link } from "react-router-dom";
+import BackIcon from "/assets/back.svg";
+import cacheImages from "../Utils/imageLoader";
 
 export default function SignIn() {
   const [isSigned, setIsSigned] = useState("Sign Up");
+
+  useEffect(() => {
+    if (signinPoster) {
+      cacheImages(signinPoster);
+    }
+  }, []);
   return (
     <div className="block md:flex flex-row gap-0 h-screen ">
       <Link
         to="/"
-        className="absolute z-20 h-[2rem] w-[2rem] px-2 text-lg left-4 top-4 text-white  bg-black bg-opacity-15 rounded-full"
+        className="absolute z-20 bg-orange-300 md:bg-transparent left-4 top-4 bg-opacity-15 rounded-full"
       >
-        &#8592;
+        <img
+          className=" h-[2rem] w-[2rem] px-2 text-lg  "
+          src={BackIcon}
+          alt="back"
+        />
       </Link>
-      <form className="flex flex-auto flex-col pt-40 items-center gap-4 text-gray-600">
+      <form className="flex flex-auto flex-col pt-40 items-center gap-4 text-gray-600  ">
         <div className="inline-flex items-center gap-3 mb-2 mt-10 ">
           <p className="text-3xl">{isSigned}</p>
           <hr className="border-none h-[1.5px] w-7 bg-gray-600" />
@@ -57,8 +69,9 @@ export default function SignIn() {
           )}
         </div>
       </form>
+
       <img
-        className="hidden md:block object-cover w-2/4 object-center"
+        className="absolute md:relative opacity-15 md:opacity-100 w-full h-full top-0 -z-10 object-cover md:w-2/4 object-center"
         src={signinPoster}
         alt=""
       />

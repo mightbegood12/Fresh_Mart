@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import DynamicButton from "./DynamicButton";
+import { currency } from "../context/CartContext";
 
 const Items = ({ item, categoryTitle }) => {
   const scrollToTop = () => {
@@ -28,7 +29,7 @@ const Items = ({ item, categoryTitle }) => {
           <div className="info flex flex-col gap-1 items-start justify-start ">
             <span className="font-semibold mt-1">{item.name}</span>
             <div className="price-add-btn max-w-[100%] flex flex-row items-center  gap-5">
-              <span className="text-green-600">{`$${item.price.toFixed(
+              <span className="text-green-600 text-sm md:text-md lg:text-lg">{`${currency}${item.price.toFixed(
                 2
               )}`}</span>
               <div className="dynamic-button">

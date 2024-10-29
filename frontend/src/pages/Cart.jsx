@@ -1,4 +1,4 @@
-import { useCart } from "../context/CartContext";
+import { useCart, currency } from "../context/CartContext";
 import CartItemDisplay from "../components/CartItemDisplay";
 import { Link } from "react-router-dom";
 import groupItemsById from "../Utils/groupItemsById";
@@ -25,9 +25,9 @@ export default function Cart() {
           <hr className="border-none h-[1.8px] w-7 bg-gray-600" />
         </div>
       ) : (
-        <div className="flex flex-row gap-5">
-          <div className="flex flex-col w-2/4 p-2 my-4 ml-4">
-            <p className="uppercase text-2xl">Cart Items</p>
+        <div className="flex flex-col md:flex-row gap-1 md:gap-5">
+          <div className="flex flex-col w-full md:w-2/4 p-2 my-4 ml-4">
+            <p className="uppercase text-xl  md:text-2xl">Cart Items</p>
             <hr className="border-none h-[1.8px] w-7 bg-gray-600" />
             <CartItemDisplay groupedItems={groupedItems} />
           </div>
@@ -37,23 +37,32 @@ export default function Cart() {
           <div className="flex flex-col w-2/4 p-2 my-4 ml-4 h-vh">
             <p className="uppercase text-2xl">Bill Details</p>
             <hr className="border-none h-[1.8px] w-7 bg-gray-600" />
-            <div className="flex flex-col gap-2 pt-4">
+            <div className="flex flex-col gap-1 pt-4">
               {groupedItems.map((item) => (
                 <div key={item.id} className="itemWrapper">
                   <p className="text-xl text-semibold">
-                    {item.name} x {item.quantity}
+                    {item.name}{" "}
+                    <span className="text-gray-500 text-sm ">X</span>{" "}
+                    {item.quantity}
                   </p>
                   <p className="text-gray-500">
-                    Item total: ${(item.price * item.quantity).toFixed(2)}
+                    Item total: {currency}
+                    {(item.price * item.quantity).toFixed(2)}
                   </p>
                 </div>
               ))}
               <hr className="border-none h-[1px] w-[12rem] bg-gray-600" />
-              <p className="text-semibold">Delivery fee: ${DELIVERY_FEE}</p>
-              <p className=" text-semibold">Site Charges: ${SITE_CHARGES}</p>
+              <p className="text-semibold text-gray-500">
+                Delivery fee: {currency}
+                {DELIVERY_FEE}
+              </p>
+              <p className=" text-semibold text-gray-500">
+                Site Charges: {currency}
+                {SITE_CHARGES}
+              </p>
               <hr className="border-none h-[1px] w-[10rem] bg-gray-600" />
-              <div className="font-bold text-lg mt-8">
-                Total Amount: $
+              <div className="font-bold text-lg mt-4 md:mt-8">
+                Total Amount: {currency}
                 {(totalAmount + DELIVERY_FEE + SITE_CHARGES).toFixed(2)}
               </div>
             </div>

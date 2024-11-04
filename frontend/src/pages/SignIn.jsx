@@ -1,17 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import signinPoster from "/assets/poster.jpg";
 import { Link } from "react-router-dom";
 import BackIcon from "/assets/back.svg";
-import cacheImages from "../Utils/imageLoader";
 
 export default function SignIn() {
   const [isSigned, setIsSigned] = useState("Sign Up");
 
-  useEffect(() => {
-    if (signinPoster) {
-      cacheImages(signinPoster);
-    }
-  }, []);
   return (
     <div className="block md:flex flex-row gap-0 h-screen ">
       <Link
@@ -74,6 +68,7 @@ export default function SignIn() {
         className="absolute md:relative opacity-15 md:opacity-100 w-full h-full top-0 -z-10 object-cover md:w-2/4 object-center"
         src={signinPoster}
         alt=""
+        loading="lazy"
       />
     </div>
   );

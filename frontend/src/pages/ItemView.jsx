@@ -4,12 +4,13 @@ import ProductDetails from "../components/ProductDetails";
 import DynamicButton from "../components/DynamicButton";
 import { useLocation } from "react-router-dom";
 import { currency } from "../context/CartContext";
+import cacheImages from "../Utils/imageLoader";
+import Policy from "../components/Policy";
 
 export default function ItemView() {
   const { state } = useLocation();
   const { item, categoryTitle } = state || {}; // Destructure item and category title from state
   const [selectedUnit, setSelectedUnit] = useState(item?.unit[0]);
-
   const [isloading, setIsloading] = useState(true);
   const [select, setSelect] = useState(
     item?.images[0] || "/assets/placeholder.png"
@@ -17,42 +18,31 @@ export default function ItemView() {
 
   useEffect(() => {
     if (item?.images) {
-      cacheImages(item.images);
+      setIsloading(true);
+      cacheImages(item.images)
+        .then(() => {
+          setIsloading(false);
+        })
+        .catch(() => {
+          setIsloading(false);
+        });
     }
-  }, [item?.images]);
-
-  const cacheImages = (srcArray) => {
-    const promises = srcArray.map((src) => {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = src;
-        img.onload = resolve;
-        img.onerror = reject;
-      });
-    });
-
-    Promise.all(promises)
-      .then(() => setIsloading(false))
-      .catch(() => setIsloading(false));
-  };
+  }, [item]);
 
   return (
-    <div className="h-auto justify-center">
-      <div className="wrapper flex m-2 p-2 flex-col md:flex-row justify-between md:gap-8">
+    <div className="h-max justify-center w-screen">
+      <div className="h-auto md:min-h-screen flex m-2 p-2 flex-col md:flex-row justify-between md:gap-8">
         {isloading ? (
-          <HashLoader
-            color="#70ff00"
-            size={120}
-            cssOverride={{
-              height: "22rem",
-              width: "18rem",
-              top: "2rem",
-              right: "14rem",
-            }}
-            speedMultiplier={4}
-          />
+          <div className="md:w-[50%] h-full my-[4rem] md:my-[20rem] flex items-center justify-center">
+            <HashLoader
+              color="#e84d0e"
+              className="p-20"
+              size={200}
+              speedMultiplier={4}
+            />
+          </div>
         ) : (
-          <div className="item-img-cont w-full md:w-[50%] p-4 md:p-8 flex flex-col gap-5 justify-center items-center">
+          <div className="item-img-cont h-auto md:min-h-screen w-full md:w-[50%] p-4 md:p-8 flex flex-col gap-5 justify-center items-center">
             <div className="big-img">
               <img
                 src={select}
@@ -87,7 +77,7 @@ export default function ItemView() {
           {/* vr line */}
         </div>
 
-        <div className="item-info w-max md:w-[50%] p-8 flex gap-2 flex-col">
+        <div className="item-info w-screen-sm md:w-[50%] p-4 md:p-8 flex gap-2 flex-col">
           <div className="category text-gray-500 text-sm">
             {categoryTitle || "Unknown Category"}
           </div>
@@ -122,6 +112,9 @@ export default function ItemView() {
               )}
             </div>
             <DynamicButton item={item} selectedUnit={selectedUnit} />
+          </div>
+          <div className="w-80 md:w-96">
+            <Policy />
           </div>
         </div>
       </div>

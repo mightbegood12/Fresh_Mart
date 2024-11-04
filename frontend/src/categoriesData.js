@@ -63,6 +63,7 @@ export const categoriesData = [
         id: 5,
         name: "Eggs",
         price: 2.5,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Eggs+2",
@@ -74,6 +75,7 @@ export const categoriesData = [
         id: 6,
         name: "Cream",
         price: 2.79,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Cream+2",
@@ -85,6 +87,7 @@ export const categoriesData = [
         id: 7,
         name: "Sour Cream",
         price: 3.29,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=SourCream+2",
@@ -108,6 +111,7 @@ export const categoriesData = [
         id: 9,
         name: "Ice Cream",
         price: 5.99,
+        unit: ["No unit Available"],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=IceCream+2",
@@ -119,6 +123,7 @@ export const categoriesData = [
         id: 10,
         name: "Whipped Cream",
         price: 3.59,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=WhippedCream+2",
@@ -135,6 +140,7 @@ export const categoriesData = [
         id: 11,
         name: "Chips",
         price: 1.99,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Chips+2",
@@ -146,6 +152,7 @@ export const categoriesData = [
         id: 12,
         name: "Soda",
         price: 1.5,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Soda+2",
@@ -157,6 +164,7 @@ export const categoriesData = [
         id: 13,
         name: "Cookies",
         price: 2.99,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Cookies+2",
@@ -168,6 +176,7 @@ export const categoriesData = [
         id: 14,
         name: "Juice",
         price: 2.0,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Juice+2",
@@ -179,6 +188,7 @@ export const categoriesData = [
         id: 15,
         name: "Candy",
         price: 0.99,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Juice+2",
@@ -190,6 +200,7 @@ export const categoriesData = [
         id: 16,
         name: "Nuts",
         price: 3.49,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Juice+2",
@@ -201,6 +212,7 @@ export const categoriesData = [
         id: 17,
         name: "Granola Bars",
         price: 1.79,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Juice+2",
@@ -212,6 +224,7 @@ export const categoriesData = [
         id: 18,
         name: "Energy Drink",
         price: 2.49,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Juice+2",
@@ -228,6 +241,7 @@ export const categoriesData = [
         id: 19,
         name: "Salt",
         price: 0.99,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Salt+2",
@@ -239,6 +253,7 @@ export const categoriesData = [
         id: 20,
         name: "Pepper",
         price: 1.49,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Pepper+2",
@@ -250,18 +265,19 @@ export const categoriesData = [
         id: 21,
         name: "Oregano",
         price: 1.29,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Oregano+2",
           "https://via.placeholder.com/120x120.png?text=Oregano+3",
           "https://via.placeholder.com/120x120.png?text=Oregano+4",
         ],
-        unit: [],
       },
       {
         id: 22,
         name: "Basil",
         price: 1.19,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Basil+2",
@@ -273,6 +289,7 @@ export const categoriesData = [
         id: 23,
         name: "Cumin",
         price: 1.39,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Basil+2",
@@ -284,6 +301,7 @@ export const categoriesData = [
         id: 24,
         name: "Paprika",
         price: 1.49,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Basil+2",
@@ -295,6 +313,7 @@ export const categoriesData = [
         id: 25,
         name: "Garlic Powder",
         price: 1.29,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Basil+2",
@@ -306,6 +325,7 @@ export const categoriesData = [
         id: 26,
         name: "Onion Powder",
         price: 1.29,
+        unit: [2, 3, 4],
         images: [
           "https://via.placeholder.com/120x120.png",
           "https://via.placeholder.com/120x120.png?text=Basil+2",

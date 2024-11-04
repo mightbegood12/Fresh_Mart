@@ -29,7 +29,7 @@ function AppContent() {
       <ToastContainer />
       {/* Conditionally render Navbar */}
       {!shouldHide && (
-        <header className="sticky top-0 z-50 bg-white">
+        <header className="sticky top-0 z-50 bg-white/95">
           <Navbar />
         </header>
       )}
@@ -46,7 +46,7 @@ function AppContent() {
         <Footer />
       </footer>
       {!shouldHide && !shouldHideCart && (
-        <div className="sticky bottom-5 z-40">
+        <div className="sticky bottom-3 z-40">
           <CartItems />
         </div>
       )}

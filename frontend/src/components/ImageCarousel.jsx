@@ -2,14 +2,10 @@ import { useEffect, useState } from "react";
 import HashLoader from "react-spinners/HashLoader";
 import cacheImages from "../Utils/imageLoader";
 
-import Image1 from "/assets/img1.jpg";
-import Image2 from "/assets/img2.jpg";
-import Image3 from "/assets/img3.jpg";
-
 const images = [
-  { src: Image1, alt: "image#1" },
-  { src: Image2, alt: "image#2" },
-  { src: Image3, alt: "image#3" },
+  { src: "/assets/img1.jpg", alt: "image#1" },
+  { src: "/assets/img2.jpg", alt: "image#2" },
+  { src: "/assets/img3.jpg", alt: "image#3" },
 ];
 
 const ImageCarousel = () => {
@@ -45,7 +41,7 @@ const ImageCarousel = () => {
       );
     }, 5000);
     return () => clearInterval(slider);
-  }, [currentIndex]);
+  }, []);
 
   const placeholderImage = "https://via.placeholder.com/600x400.png";
 

@@ -3,7 +3,7 @@ import CartLogo from "/assets/cart.svg";
 import MenuIcon from "/assets/menu.svg";
 import BackIcon from "/assets/back.svg";
 import { NavLink, useLocation } from "react-router-dom";
-import { useCart } from "../context/CartContext"; // Use the custom hook
+import { currency, useCart } from "../context/CartContext"; // Use the custom hook
 import { useState } from "react";
 
 const Navbar = () => {
@@ -72,7 +72,7 @@ const Navbar = () => {
                       {cartItems.length + " "}items
                     </div>
                     <div className="text-[12px]">
-                      $
+                      {currency}
                       {cartItems
                         .reduce((total, item) => total + item.price, 0)
                         .toFixed(2)}

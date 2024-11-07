@@ -5,11 +5,17 @@ import groupItemsById from "../Utils/groupItemsById";
 import { SITE_CHARGES, DELIVERY_FEE } from "../constants/constant";
 import { useState } from "react";
 import { Title } from "../components/Title";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "../components/CheckoutForm";
 
 export default function Cart() {
   const { cartItems } = useCart();
   const groupedItems = groupItemsById(cartItems);
   const [checkout, setCheckout] = useState(false);
+  const stripePromise = loadStripe(
+    import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY
+  );
 
   // Calculate total price for all items in the cart
   const totalAmount = groupedItems.reduce(
@@ -96,6 +102,9 @@ export default function Cart() {
             {checkout ? (
               <div className="mt-4 duration-550 ease-in-out">
                 <Title titleText="Payment Options" />
+                <Elements stripe={stripePromise}>
+                  <CheckoutForm />
+                </Elements>
               </div>
             ) : (
               ""

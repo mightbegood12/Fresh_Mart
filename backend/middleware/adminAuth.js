@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import { toast, Flip } from "react-toastify";
 
 const adminAuth = async (req, res, next) => {
   try {
@@ -16,8 +15,6 @@ const adminAuth = async (req, res, next) => {
     }
     next();
   } catch (error) {
-    toast.error(error);
-
     return res.status(401).json({ message: "Unauthorized" });
   }
 };

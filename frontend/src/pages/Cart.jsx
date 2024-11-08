@@ -13,6 +13,8 @@ export default function Cart() {
   const { cartItems } = useCart();
   const groupedItems = groupItemsById(cartItems);
   const [checkout, setCheckout] = useState(false);
+
+  
   const stripePromise = loadStripe(
     import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY
   );

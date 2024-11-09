@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import HashLoader from "react-spinners/HashLoader";
-import cacheImages from "../Utils/imageLoader";
+import cacheImages from "../Utils/cacheImages.jsx";
 
 const images = [
   { src: "/assets/img1.jpg", alt: "image#1" },

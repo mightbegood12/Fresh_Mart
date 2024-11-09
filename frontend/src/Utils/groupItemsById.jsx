@@ -4,9 +4,13 @@ const groupItemsById = (items) => {
       (i) => i.id === item.id && i.selectedUnit === item.selectedUnit
     );
     if (existingItem) {
-      existingItem.quantity += 1; // Increment quantity if the item already exists
-    } else {
-      acc.push({ ...item, quantity: 1 }); // Add new item with quantity
+      existingItem.quantity += 1;
+    }
+    // else if (e){
+
+    // }
+    else {
+      acc.push({ ...item, quantity: 1 });
     }
     return acc;
   }, []);

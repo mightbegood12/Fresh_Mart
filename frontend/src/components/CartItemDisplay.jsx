@@ -5,7 +5,7 @@ import { currency } from "../context/CartContext";
 const CartItemDisplay = ({ groupedItems }) => {
   return groupedItems.map((item) => (
     <div
-      key={item.id}
+      key={`${item.id}-${item.selectedUnit}`} // Just to ignore duplicate key for render warning from react
       className="itemWrapper w-[90%] mt-4 flex flex-row drop-shadow-sm hover:scale-105 ease-in-out duration-300 gap-6 rounded-lg p-4 border-[1px] border-opacity-30 border-gray-400 m-2 items-center justify-between"
     >
       <div className="flex flex-row gap-6">
@@ -26,7 +26,7 @@ const CartItemDisplay = ({ groupedItems }) => {
         </div>
       </div>
       <div className="dynamic-button">
-        <DynamicButton item={item} />{" "}
+        <DynamicButton item={item} selectedUnit={item.selectedUnit} />{" "}
       </div>
     </div>
   ));

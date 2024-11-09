@@ -5,19 +5,11 @@ import groupItemsById from "../Utils/groupItemsById";
 import { SITE_CHARGES, DELIVERY_FEE } from "../constants/constant";
 import { useState } from "react";
 import { Title } from "../components/Title";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import CheckoutForm from "../components/CheckoutForm";
 
 export default function Cart() {
   const { cartItems } = useCart();
   const groupedItems = groupItemsById(cartItems);
   const [checkout, setCheckout] = useState(false);
-
-  
-  const stripePromise = loadStripe(
-    import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY
-  );
 
   // Calculate total price for all items in the cart
   const totalAmount = groupedItems.reduce(
@@ -54,13 +46,20 @@ export default function Cart() {
             <Title titleText="Bill Details" />
             <div className="flex flex-col w-max gap-1 pt-4 mb-6">
               {groupedItems.map((item) => (
-                <div key={item.id} className="itemWrapper">
-                  <p className="text-lg md:text-xl text-semibold">
+                <div
+                  key={`${item.id}-${item.selectedUnit}`} // Just to ignore duplicate key for render warning from react
+                  className="itemWrapper"
+                >
+                  <div className="text-lg md:text-xl text-semibold">
                     {item.name}
+                    {"  "}
+                    <div className="inline text-[8px] md:text-[12px]">
+                      Unit:{item.selectedUnit}
+                    </div>
                     {"  "}
                     <span className="text-gray-500 text-sm  ">X</span>{" "}
                     {item.quantity}
-                  </p>
+                  </div>
                   <p className="text-gray-500">
                     Item total: {currency}
                     {(item.price * item.quantity).toFixed(2)}
@@ -104,9 +103,6 @@ export default function Cart() {
             {checkout ? (
               <div className="mt-4 duration-550 ease-in-out">
                 <Title titleText="Payment Options" />
-                <Elements stripe={stripePromise}>
-                  <CheckoutForm />
-                </Elements>
               </div>
             ) : (
               ""

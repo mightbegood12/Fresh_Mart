@@ -14,6 +14,7 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (item) => {
     if (!item.selectedUnit) {
+      item.selectedUnit = item.unit[0];
       toast.info("Selected Default Unit", {
         position: "top-center",
         autoClose: 2000,
@@ -29,9 +30,12 @@ export const CartProvider = ({ children }) => {
     setCartItems((prevItems) => [...prevItems, item]);
   };
 
-  const removeFromCart = (id) => {
+  const removeFromCart = (id, selectedUnit) => {
     setCartItems((prevItems) => {
-      const itemIndex = prevItems.findIndex((cartItem) => cartItem.id === id);
+      const itemIndex = prevItems.findIndex(
+        (cartItem) =>
+          cartItem.id === id && cartItem.selectedUnit === selectedUnit
+      );
 
       if (itemIndex === -1) return prevItems; // If item not found, return the cart as is
 

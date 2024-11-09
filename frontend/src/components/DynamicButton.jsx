@@ -7,14 +7,14 @@ export default function DynamicButton({ item, selectedUnit }) {
   const handleAddToCart = (e) => {
     // e.stopPropagation();
     addToCart({ ...item, selectedUnit: selectedUnit });
-    // Directly add item to cart using the context function
+    // adds item to the cart along with the selectedUnit (DEFAULT its unit[0])
   };
 
   const handleRemoveFromCart = () => {
-    removeFromCart(item.id); // Remove item by its ID from the cart
+    removeFromCart(item.id, selectedUnit); // Remove item by its ID from the cart
   };
 
-  // Filter cartItems for the specific item by matching its ID
+  // Filter cartItems for the specific item by matching its ID for specific product in the BUTTON
   let itemInCart = cartItems.filter((cartItem) => cartItem.id === item.id);
 
   return (

@@ -30,8 +30,8 @@ export default function ItemView() {
   }, [item]);
 
   return (
-    <div className="h-max justify-center w-screen">
-      <div className="h-auto md:min-h-screen flex m-2 p-2 flex-col md:flex-row justify-between md:gap-8">
+    <div className="h-max justify-center ">
+      <div className="h-auto md:min-h-screen flex flex-col md:flex-row justify-between">
         {isloading ? (
           <div className="md:w-[50%] h-full my-[4rem] md:my-[20rem] flex items-center justify-center">
             <HashLoader
@@ -77,7 +77,7 @@ export default function ItemView() {
           {/* vr line */}
         </div>
 
-        <div className="item-info w-screen-sm md:w-[50%] p-4 md:p-8 flex gap-2 flex-col">
+        <div className="item-info w-screen-sm md:w-[50%] p-4 md:p-8  flex gap-2 flex-col">
           <div className="category text-gray-500 text-sm">
             {categoryTitle || "Unknown Category"}
           </div>

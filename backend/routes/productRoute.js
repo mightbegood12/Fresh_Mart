@@ -1,9 +1,9 @@
 import express from "express";
 import {
-  addProducts,
+  addProduct,
   listProducts,
-  removeProducts,
-  singleProducts,
+  removeProduct,
+  singleProduct,
 } from "../controllers/productController.js";
 import upload from "../middleware/multer.js";
 import adminAuth from "../middleware/adminAuth.js";
@@ -19,10 +19,11 @@ productRouter.post(
     { name: "image3", maxCount: 1 },
     { name: "image4", maxCount: 1 },
   ]),
-  addProducts
+  addProduct
 );
-productRouter.get("/list", adminAuth, listProducts);
-productRouter.post("/remove", removeProducts);
-productRouter.post("/single", singleProducts);
+
+productRouter.get("/list", listProducts);
+productRouter.post("/remove", adminAuth, removeProduct);
+productRouter.post("/single", singleProduct);
 
 export default productRouter;

@@ -6,20 +6,21 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    description: {
-      type: String,
-      required: true,
-    },
+
     price: {
       type: Number,
       required: true,
     },
     unit: {
-      type: [Number],
+      type: Array,
       required: true,
     },
     images: {
       type: Array,
+      required: true,
+    },
+    description: {
+      type: String,
       required: true,
     },
     date: {
@@ -30,12 +31,10 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    productDescription: {
-      type: String,
-    },
   },
   { timestamps: true }
 );
 
-const productModel = mongoose.model("product", productSchema);
+const productModel =
+  mongoose.model.product || mongoose.model("product", productSchema);
 export default productModel;

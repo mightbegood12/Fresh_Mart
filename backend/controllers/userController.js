@@ -1,4 +1,3 @@
-import express from "express";
 import bycrypt from "bcrypt";
 import validator from "validator";
 import userModel from "../models/userModel.js";
@@ -12,18 +11,20 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
     const user = await userModel.findOne({ email });
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
     const isMatch = await bycrypt.compare(password, user.password);
     if (isMatch) {
       const token = createToken(user._id);
       res.json({ success: true, token });
     } else {
-      res.status(401).json({ message: "Invalid password" });
+      res.status(401).json({ success: false, message: "Invalid password" });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -31,17 +32,20 @@ const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    const exist = await userModel.findOne({ email });
-    if (exist) {
-      return res.status(400).json({ message: "Email already exist" });
-    }
-    if (!validator.isEmail(email)) {
-      return res.status(400).json({ message: "Invalid email" });
-    }
-    if (password.length < 8) {
+    const isExist = await userModel.findOne({ email });
+    if (isExist) {
       return res
         .status(400)
-        .json({ message: "Password must be at least 8 characters" });
+        .json({ success: false, message: "Email already exist" });
+    }
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({ success: false, message: "Invalid email" });
+    }
+    if (password.length < 8) {
+      return res.status(400).json({
+        success: false,
+        message: "Password must be at least 8 characters",
+      });
     }
     //hashing
 
@@ -58,7 +62,7 @@ const registerUser = async (req, res) => {
     res.status(201).json({ success: true, token });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -76,7 +80,7 @@ const adminLogin = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 

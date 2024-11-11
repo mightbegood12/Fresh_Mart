@@ -1,6 +1,6 @@
 import React from "react";
 import DynamicButton from "./DynamicButton";
-import { currency } from "../context/CartContext";
+import { currency } from "../constants/constant.js";
 
 const CartItemDisplay = ({ groupedItems }) => {
   return groupedItems.map((item) => (

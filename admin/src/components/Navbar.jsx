@@ -1,13 +1,21 @@
 import React from "react";
 
-const Navbar = () => {
+const Navbar = ({ setToken }) => {
   return (
     <main className="border p-2">
       <nav className="flex flex-row items-center justify-between md:justify-between mx-2">
         <div className=" text-2xl lg:text-3xl h-12 w-max m-0 p-2 text-center text-red-700">
-          Fresh <span className="text-orange-700">Mart</span> <span className="text-sm text-gray-400">Admin</span>
+          Fresh <span className="text-orange-700">Mart</span>{" "}
+          <span className="text-sm text-gray-400">Admin</span>
         </div>
-        <button className="text-white bg-red-700 p-2 rounded-lg text-[15px]">Log out</button>
+        <button
+          onClick={() => {
+            setToken("");
+          }}
+          className="text-white bg-red-500 p-2 rounded-lg text-[15px] hover:bg-red-600"
+        >
+          Log out
+        </button>
       </nav>
     </main>
   );

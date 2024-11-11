@@ -1,8 +1,8 @@
-import { useCart, currency } from "../context/CartContext";
+import { useCart } from "../context/CartContext";
 import CartItemDisplay from "../components/CartItemDisplay";
 import { Link } from "react-router-dom";
 import groupItemsById from "../Utils/groupItemsById";
-import { SITE_CHARGES, DELIVERY_FEE } from "../constants/constant";
+import { SITE_CHARGES, DELIVERY_FEE, currency } from "../constants/constant.js";
 import { useState } from "react";
 import { Title } from "../components/Title";
 

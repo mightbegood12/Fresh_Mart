@@ -3,7 +3,8 @@ import CartLogo from "/assets/cart.svg";
 import MenuIcon from "/assets/menu.svg";
 import BackIcon from "/assets/back.svg";
 import { NavLink, useLocation } from "react-router-dom";
-import { currency, useCart } from "../context/CartContext"; // Use the custom hook
+import { useCart } from "../context/CartContext";
+import { currency } from "../constants/constant.js";
 import { useState } from "react";
 
 const Navbar = () => {

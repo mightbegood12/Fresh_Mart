@@ -1,5 +1,6 @@
 import React from "react";
-import { currency, useCart } from "../context/CartContext";
+import { useCart } from "../context/CartContext";
+import { currency } from "../constants/constant.js";
 import { NavLink } from "react-router-dom";
 import BackIcon from "/assets/back.svg";
 

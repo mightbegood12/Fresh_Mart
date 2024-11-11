@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Policy() {
   return (
     <div className="flex gap-2 my-5 justify-center ">

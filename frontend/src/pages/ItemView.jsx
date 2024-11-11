@@ -3,7 +3,7 @@ import HashLoader from "react-spinners/HashLoader";
 import ProductDetails from "../components/ProductDetails";
 import DynamicButton from "../components/DynamicButton";
 import { useLocation } from "react-router-dom";
-import { currency } from "../context/CartContext";
+import { currency } from "../constants/constant.js";
 import cacheImages from "../Utils/cacheImages.jsx";
 import Policy from "../components/Policy";
 

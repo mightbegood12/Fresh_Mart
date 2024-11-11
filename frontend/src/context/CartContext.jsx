@@ -3,8 +3,6 @@ import { toast, Flip } from "react-toastify";
 
 const CartContext = createContext();
 
-export const currency = "₹";
-
 export const useCart = () => {
   return useContext(CartContext);
 };
@@ -46,9 +44,7 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, currency }}
-    >
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );

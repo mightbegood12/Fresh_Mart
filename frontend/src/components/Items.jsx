@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import DynamicButton from "./DynamicButton";
-import { currency } from "../context/CartContext";
+import { currency } from "../constants/constant.js";
 
 const Items = ({ item, categoryTitle }) => {
   const scrollToTop = () => {

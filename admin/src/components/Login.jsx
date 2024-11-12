@@ -15,6 +15,7 @@ const Login = ({ setToken }) => {
       });
       if (response.data.success) {
         setToken(response.data.token);
+        // console.log("token has set");
         toast.info("Welcome");
       } else {
         toast.error("Unauthorized");

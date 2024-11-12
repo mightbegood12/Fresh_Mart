@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import ProductUnits from "../components/ProductUnits";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import cacheImages from "../Utils/cacheImages.js";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { backendUrl } from "../App.jsx";
 
-const Add = () => {
+const Add = ({ token }) => {
   // State for image previews
   const [images, setImages] = useState([
     "https://www.mariposakids.co.nz/wp-content/uploads/2014/08/image-placeholder2.jpg",
@@ -13,8 +16,6 @@ const Add = () => {
   ]);
 
   const [isLoading, setIsLoading] = useState(true);
-
-  // State for product data (name, category, price, description, units)
   const [productData, setProductData] = useState({
     name: "",
     category: "",
@@ -77,10 +78,38 @@ const Add = () => {
   };
 
   // Handle form submission
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log(productData); // Log all product data, including images, units, etc.
-    // You can send productData to a backend API or perform any action here.
+    try {
+      const formData = new FormData();
+
+      formData.append("name", productData.name);
+      formData.append("price", productData.price);
+      formData.append("category", productData.category);
+      formData.append("unit", JSON.stringify(productData.units));
+      productData.images[0] && formData.append("image1", productData.images[0]);
+      productData.images[0] && formData.append("image2", productData.images[1]);
+      productData.images[0] && formData.append("image3", productData.images[2]);
+      productData.images[0] && formData.append("image4", productData.images[3]);
+      formData.append("description", productData.description);
+
+      console.log(formData);
+
+      const response = await axios.post(
+        backendUrl + "/api/product/add",
+        formData,
+        { headers: { token } }
+      );
+      if (response.data.success) {
+        toast.info("Product Added Successfully");
+      } else {
+        toast.error("Something Went Wrong");
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      console.log(error.message);
+      toast.error(error.message);
+    }
   };
 
   return (

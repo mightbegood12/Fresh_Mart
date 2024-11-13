@@ -18,7 +18,7 @@ const loginUser = async (req, res) => {
     const isMatch = await bycrypt.compare(password, user.password);
     if (isMatch) {
       const token = createToken(user._id);
-      res.json({ success: true, token });
+      res.json({ success: true, message: "User Exists", token });
     } else {
       res.status(401).json({ success: false, message: "Invalid password" });
     }

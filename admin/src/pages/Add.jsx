@@ -7,28 +7,29 @@ import axios from "axios";
 import { backendUrl } from "../App.jsx";
 
 const Add = ({ token }) => {
-  // State for image previews
-  const [images, setImages] = useState([
-    "https://www.mariposakids.co.nz/wp-content/uploads/2014/08/image-placeholder2.jpg",
-    "https://www.mariposakids.co.nz/wp-content/uploads/2014/08/image-placeholder2.jpg",
-    "https://www.mariposakids.co.nz/wp-content/uploads/2014/08/image-placeholder2.jpg",
-    "https://www.mariposakids.co.nz/wp-content/uploads/2014/08/image-placeholder2.jpg",
-  ]);
+  const image =
+    "https://www.mariposakids.co.nz/wp-content/uploads/2014/08/image-placeholder2.jpg";
 
   const [isLoading, setIsLoading] = useState(true);
-  const [productData, setProductData] = useState({
-    name: "",
-    category: "",
-    price: "",
-    description: "",
-    units: [],
-    images: [],
-  });
+  const [isProductLoading, setProductLoading] = useState(false);
+
+  const [image1, setImage1] = useState(false);
+  const [image2, setImage2] = useState(false);
+  const [image3, setImage3] = useState(false);
+  const [image4, setImage4] = useState(false);
+
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [units, setUnits] = useState([]);
+
+  // console.log(image1, image2, image3, image4);
 
   useEffect(() => {
-    if (images) {
+    if (image) {
       setIsLoading(true);
-      cacheImages(images)
+      cacheImages(image)
         .then(() => {
           setIsLoading(false);
         })
@@ -36,45 +37,22 @@ const Add = ({ token }) => {
           setIsLoading(false);
         });
     }
-  }, [images]);
-
-  // Handle image changes
-  const handleImageChange = (index, event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const imageURL = URL.createObjectURL(file);
-      setImages((prevImages) => {
-        const newImages = [...prevImages];
-        newImages[index] = imageURL;
-
-        return newImages;
-      });
-      setProductData((prevData) => ({
-        ...prevData,
-        images: [
-          ...prevData.images.slice(0, index),
-          imageURL,
-          ...prevData.images.slice(index + 1),
-        ],
-      }));
-    }
-  };
-
-  // Handle product data input changes
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProductData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  }, [image]);
 
   // Handle units input changes (when coming from the ProductUnits component)
-  const handleUnitsChange = (newUnits) => {
-    setProductData((prevData) => ({
-      ...prevData,
-      units: newUnits,
-    }));
+  const handleAddUnit = (e) => {
+    setUnits([...units, ""]);
+    // console.log(units);
+  };
+
+  const handleRemoveUnit = (index) => {
+    setUnits(units.filter((_, i) => i !== index));
+  };
+
+  const handleUnitChange = (index, event) => {
+    const newUnits = [...units];
+    newUnits[index] = event.target.value;
+    setUnits(newUnits);
   };
 
   // Handle form submission
@@ -82,18 +60,16 @@ const Add = ({ token }) => {
     e.preventDefault();
     try {
       const formData = new FormData();
-
-      formData.append("name", productData.name);
-      formData.append("price", productData.price);
-      formData.append("category", productData.category);
-      formData.append("unit", JSON.stringify(productData.units));
-      productData.images[0] && formData.append("image1", productData.images[0]);
-      productData.images[0] && formData.append("image2", productData.images[1]);
-      productData.images[0] && formData.append("image3", productData.images[2]);
-      productData.images[0] && formData.append("image4", productData.images[3]);
-      formData.append("description", productData.description);
-
-      console.log(formData);
+      setProductLoading(true);
+      formData.append("name", name);
+      formData.append("price", price);
+      formData.append("category", category);
+      formData.append("unit", JSON.stringify(units));
+      image1 && formData.append("image1", image1);
+      image2 && formData.append("image2", image2);
+      image3 && formData.append("image3", image3);
+      image4 && formData.append("image4", image4);
+      formData.append("description", description);
 
       const response = await axios.post(
         backendUrl + "/api/product/add",
@@ -102,6 +78,16 @@ const Add = ({ token }) => {
       );
       if (response.data.success) {
         toast.info("Product Added Successfully");
+        setImage1(false);
+        setImage2(false);
+        setImage3(false);
+        setImage4(false);
+        setName("");
+        setCategory("");
+        setPrice("");
+        setUnits([]);
+        setDescription("");
+        setProductLoading(false);
       } else {
         toast.error("Something Went Wrong");
         console.log(response.data.message);
@@ -113,32 +99,70 @@ const Add = ({ token }) => {
   };
 
   return (
-    <div className="m-2 p-2 flex flex-col gap-2">
+    <div className="w-[82%] flex flex-col gap-2 p-2">
+      <p className="text-xl mt-1 font-semibold">Add Products</p>
       <form onSubmit={onSubmitHandler} className="flex flex-col gap-2">
         <p>Upload Photos</p>
-        <div className="form flex flex-row gap-2">
-          {isLoading ? (
-            <div className="w-96 h-[100px] flex items-center justify-center">
-              <ScaleLoader />
-            </div>
-          ) : (
-            images.map((image, index) => (
-              <label htmlFor={`image${index + 1}`} key={index}>
-                <img
-                  className="h-[100px] w-[100px] object-cover object-center"
-                  src={image}
-                  alt={`Image ${index + 1}`}
-                />
-                <input
-                  type="file"
-                  id={`image${index + 1}`}
-                  hidden
-                  onChange={(event) => handleImageChange(index, event)}
-                />
-              </label>
-            ))
-          )}
-        </div>
+        {isLoading ? (
+          <div className="w-96 h-[100px] flex items-center justify-center">
+            <ScaleLoader />
+          </div>
+        ) : (
+          <div className="form flex flex-row gap-2">
+            <label htmlFor="image1">
+              <img
+                className="h-[100px] w-[100px] object-cover object-center"
+                src={!image1 ? image : URL.createObjectURL(image1)}
+                alt="upload Image"
+              />
+              <input
+                type="file"
+                id="image1"
+                hidden
+                onChange={(event) => setImage1(event.target.files[0])}
+              />
+            </label>
+            <label htmlFor="image2">
+              <img
+                className="h-[100px] w-[100px] object-cover object-center"
+                src={!image2 ? image : URL.createObjectURL(image2)}
+                alt="upload Image"
+              />
+              <input
+                type="file"
+                id="image2"
+                hidden
+                onChange={(event) => setImage2(event.target.files[0])}
+              />
+            </label>
+            <label htmlFor="image3">
+              <img
+                className="h-[100px] w-[100px] object-cover object-center"
+                src={!image3 ? image : URL.createObjectURL(image3)}
+                alt="upload Image"
+              />
+              <input
+                type="file"
+                id="image3"
+                hidden
+                onChange={(event) => setImage3(event.target.files[0])}
+              />
+            </label>
+            <label htmlFor="image4">
+              <img
+                className="h-[100px] w-[100px] object-cover object-center"
+                src={!image4 ? image : URL.createObjectURL(image4)}
+                alt="upload Image"
+              />
+              <input
+                type="file"
+                id="image4"
+                hidden
+                onChange={(event) => setImage4(event.target.files[0])}
+              />
+            </label>
+          </div>
+        )}
 
         <p>Product Details</p>
 
@@ -149,8 +173,8 @@ const Add = ({ token }) => {
             name="name"
             className="px-2 py-1 border-gray-200 border-[1px] text-md"
             placeholder="Product name"
-            value={productData.name}
-            onChange={handleInputChange}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </label>
 
@@ -161,26 +185,50 @@ const Add = ({ token }) => {
             name="category"
             className="px-2 py-1 border-gray-200 border-[1px] text-md"
             placeholder="Product category"
-            value={productData.category}
-            onChange={handleInputChange}
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
           />
         </label>
 
-        {/* Pass down handleUnitsChange to ProductUnits component to update units */}
-        <ProductUnits
-          units={productData.units}
-          onUnitsChange={handleUnitsChange}
-        />
+        <div className="quantity-container flex flex-col gap-2">
+          {units.map((unit, index) => (
+            <div key={index} className="flex items-center gap-2">
+              <input
+                type="text"
+                className="px-2 py-1 border-gray-200 border-[1px] text-md"
+                value={unit}
+                onChange={(e) => handleUnitChange(index, e)}
+                placeholder="Enter unit"
+              />
+              <button
+                type="button"
+                className="bg-red-500 text-white px-2 py-1 rounded-lg"
+                onClick={() => handleRemoveUnit(index)}
+                disabled={units.length === 1}
+              >
+                &#10006;
+              </button>
+            </div>
+          ))}
+
+          <button
+            type="button"
+            className="bg-green-500 w-60 text-white px-2 py-1 rounded-lg mt-2"
+            onClick={handleAddUnit}
+          >
+            Add Unit
+          </button>
+        </div>
 
         <label htmlFor="price">
           <input
-            type="text"
+            type="number"
             id="price"
             name="price"
             className="px-2 py-1 border-gray-200 border-[1px] text-md"
             placeholder="Price"
-            value={productData.price}
-            onChange={handleInputChange}
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
           />
         </label>
 
@@ -190,16 +238,16 @@ const Add = ({ token }) => {
             name="description"
             className="px-2 py-1 w-96 h-20 border-gray-200 border-[1px] text-md"
             placeholder="Product Description"
-            value={productData.description}
-            onChange={handleInputChange}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
         </label>
 
         <button
           type="submit"
-          className="text-white bg-red-500 p-2 rounded-lg text-[15px] hover:bg-red-600"
+          className="text-white bg-red-500 w-60 p-2 rounded-lg text-[15px] hover:bg-red-600"
         >
-          Add Product
+          {isProductLoading ? "Loading..." : "Add Product"}
         </button>
       </form>
     </div>

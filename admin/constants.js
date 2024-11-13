@@ -1,0 +1,3 @@
+const currency = "₹";
+
+export { currency };

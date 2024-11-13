@@ -2,26 +2,35 @@ import SearchLogo from "/assets/search.svg";
 import CartLogo from "/assets/cart.svg";
 import MenuIcon from "/assets/menu.svg";
 import BackIcon from "/assets/back.svg";
-import Userlogo from "/assets/user-logo.png"
+import Userlogo from "/assets/user-logo.png";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { currency, useCart } from "../context/CartContext"; // Use the custom hook
-import { useContext, useState } from "react";
-import { CartContext } from "../context/CartContext";
+import { useState } from "react";
+import { Flip, toast } from "react-toastify";
 
-const Navbar = () => {
-  const { cartItems } = useCart(); 
+const Navbar = ({ token, setToken }) => {
+  const { cartItems } = useCart();
   const [visible, setVisible] = useState(false);
-  const {token,setToken} = useContext(CartContext)
 
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   //LOGOUT
   const handleLogout = () => {
-    setToken(null);
-    localStorage.removeItem('token')
-    navigate('/')
-  }
+    toast.info("User Logged out Successfully!", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Flip,
+    });
+    setToken("");
+    navigate("/");
+  };
 
   return (
     <main className="border p-2">
@@ -57,32 +66,37 @@ const Navbar = () => {
         </div>
 
         {token ? (
-  <div className="hidden md:flex items-center gap-4">
-  
-    <NavLink to="/profile" className="flex items-center gap-2">
-      <img
-        src={Userlogo}
-        alt="User Avatar"
-        className="w-14 h-14 rounded-full object-cover"
-      />
-    
-    </NavLink>
-    <button
-      onClick={handleLogout}
-      className="bg-red-600 text-white px-4 py-2 rounded-lg"
-    >
-      Logout
-    </button>
-  </div>
-) : (
-  <NavLink
-    to="/sign-in"
-    className="hidden md:block text-lg h-12 m-0 p-2 text-center"
-  >
-    Sign In
-  </NavLink>
-)}
-
+          <div className="hidden group md:flex items-center relative gap-4">
+            <NavLink to="/profile" className="flex items-center gap-2">
+              <img
+                src={Userlogo}
+                alt="User Avatar"
+                className="w-14 h-14 rounded-full object-cover"
+              />
+            </NavLink>
+            <div className="bg-white rounded-sm h-max w-32 absolute top-12 -left-[40px] shadow-md hidden group-hover:flex flex-col">
+              <NavLink
+                className="px-4 py-2 text-sm text-center hover:bg-red-100"
+                to="/profile"
+              >
+                Profile
+              </NavLink>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 text-sm hover:bg-red-100"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        ) : (
+          <NavLink
+            to="/sign-in"
+            className="hidden md:block text-lg h-12 m-0 p-2 text-center"
+          >
+            Sign In
+          </NavLink>
+        )}
 
         <div className="hidden md:flex flex-row flex-shrink-0 flex-grow-0 ">
           <NavLink

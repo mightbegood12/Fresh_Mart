@@ -23,7 +23,7 @@ const Items = ({ item, categoryTitle }) => {
         state={{ item, categoryTitle }}
         // target="_blank"
       >
-        <div className="itemWrapper px-4 flex flex-col drop-shadow-sm hover:scale-110 ease-in-out duration-300 gap-3 max-w-40 flex-shrink-0 rounded-lg p-4 border-[1px] border-opacity-30 border-gray-400 m-2 items-center justify-center">
+        <div className="itemWrapper px-4 flex flex-col drop-shadow-sm md:hover:scale-110  ease-in-out duration-300 gap-3 max-w-40 flex-shrink-0 rounded-lg p-4 border-[1px] border-opacity-30 border-gray-400 m-2 items-center justify-center">
           <div className="img object-cover">
             <img src={item.images[0]} alt={item.name} />
           </div>

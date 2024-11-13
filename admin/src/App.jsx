@@ -30,7 +30,7 @@ const App = () => {
           <header className="sticky top-0 z-50 bg-white/95">
             <Navbar setToken={setToken} />
           </header>
-          <div className="flex flex-row w-full">
+          <div className="flex flex-row flex-shrink-0 w-full">
             <Sidebar />
             <Routes>
               <Route path="/" element={<AdminHome />} />

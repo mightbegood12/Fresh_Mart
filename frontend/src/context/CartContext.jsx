@@ -1,15 +1,23 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState,useEffect, useContext } from "react";
 import { toast, Flip } from "react-toastify";
 
-const CartContext = createContext();
+
+
+export const CartContext = createContext();
+
+export const currency = "₹";
 
 export const useCart = () => {
-  return useContext(CartContext);
+  return useContext(CartContext); 
 };
 
-export const CartProvider = ({ children }) => {
+export const CartProvider = ({ children }) => { 
   const [cartItems, setCartItems] = useState([]);
 
+
+  
+
+  const [token,setToken] = useState('')
   const addToCart = (item) => {
     if (!item.selectedUnit) {
       item.selectedUnit = item.unit[0];
@@ -43,8 +51,17 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+useEffect(() => {
+  if(!token && localStorage.getItem(token)){
+    setToken(localStorage.getItem(token))
+  }
+})
+  
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{ cartItems, addToCart, removeFromCart, currency, setToken,token }}
+    >
       {children}
     </CartContext.Provider>
   );

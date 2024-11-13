@@ -2,16 +2,26 @@ import SearchLogo from "/assets/search.svg";
 import CartLogo from "/assets/cart.svg";
 import MenuIcon from "/assets/menu.svg";
 import BackIcon from "/assets/back.svg";
-import { NavLink, useLocation } from "react-router-dom";
-import { useCart } from "../context/CartContext";
-import { currency } from "../constants/constant.js";
-import { useState } from "react";
+import Userlogo from "/assets/user-logo.png"
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { currency, useCart } from "../context/CartContext"; // Use the custom hook
+import { useContext, useState } from "react";
+import { CartContext } from "../context/CartContext";
 
 const Navbar = () => {
-  const { cartItems } = useCart(); // Access cart items
+  const { cartItems } = useCart(); 
   const [visible, setVisible] = useState(false);
+  const {token,setToken} = useContext(CartContext)
 
   const location = useLocation();
+  const navigate = useNavigate()
+
+  //LOGOUT
+  const handleLogout = () => {
+    setToken(null);
+    localStorage.removeItem('token')
+    navigate('/')
+  }
 
   return (
     <main className="border p-2">
@@ -45,13 +55,35 @@ const Navbar = () => {
             alt="search icon"
           />
         </div>
-        <NavLink
-          to="/sign-in"
-          // onClick={handleNavLinkClick}
-          className="hidden md:block text-lg h-12 m-0 p-2 text-center"
-        >
-          Sign In
-        </NavLink>
+
+        {token ? (
+  <div className="hidden md:flex items-center gap-4">
+  
+    <NavLink to="/profile" className="flex items-center gap-2">
+      <img
+        src={Userlogo}
+        alt="User Avatar"
+        className="w-14 h-14 rounded-full object-cover"
+      />
+    
+    </NavLink>
+    <button
+      onClick={handleLogout}
+      className="bg-red-600 text-white px-4 py-2 rounded-lg"
+    >
+      Logout
+    </button>
+  </div>
+) : (
+  <NavLink
+    to="/sign-in"
+    className="hidden md:block text-lg h-12 m-0 p-2 text-center"
+  >
+    Sign In
+  </NavLink>
+)}
+
+
         <div className="hidden md:flex flex-row flex-shrink-0 flex-grow-0 ">
           <NavLink
             to="/cart"

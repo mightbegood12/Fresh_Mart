@@ -38,7 +38,7 @@ const Items = ({ item, categoryTitle }) => {
             {isLoading ? (
               <div className="bg-gray-100 h-[120px] w-[120px] animate-pulse"></div>
             ) : (
-              <img src={item.images[0]} alt={item.name} />
+              <div className="bg-gray-100 h-[120px] w-[120px] animate-pulse"></div>
             )}
           </div>
           <div className="info flex flex-col gap-1 items-start justify-start ">

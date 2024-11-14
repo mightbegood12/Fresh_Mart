@@ -35,7 +35,7 @@ export default function SignIn({ setToken }) {
             theme: "colored",
             transition: Flip,
           });
-          navigate("/");
+          setIsSigned("Login");
         } else {
           toast.error(response.data.message, { position: "top-center" });
         }

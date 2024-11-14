@@ -6,6 +6,7 @@ import { Flip, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { backendURL } from "../App";
+import { useCart } from "../context/CartContext.jsx";
 
 export default function SignIn({ setToken }) {
   const [isSigned, setIsSigned] = useState("Sign Up");
@@ -13,6 +14,8 @@ export default function SignIn({ setToken }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -22,8 +25,10 @@ export default function SignIn({ setToken }) {
           email,
           password,
         });
+  
         if (response.data.success) {
           setToken(response.data.token);
+          localStorage.setItem("user", JSON.stringify({ name, email }));
           toast.success("Account Created Successfully!", {
             position: "top-center",
             autoClose: 2000,
@@ -37,16 +42,19 @@ export default function SignIn({ setToken }) {
           });
           setIsSigned("Login");
         } else {
-          toast.error(response.data.message, { position: "top-center" });
+          toast.error(response.data.message || "Registration failed", {
+            position: "top-center",
+          });
         }
       } else {
         const response = await axios.post(backendURL + "/api/user/login", {
           email,
           password,
         });
-
+  
         if (response.data.success) {
           setToken(response.data.token);
+          localStorage.setItem("user", JSON.stringify({ email }));
           toast.success("Login Successfully!", {
             position: "top-center",
             autoClose: 2000,
@@ -60,15 +68,24 @@ export default function SignIn({ setToken }) {
           });
           navigate("/");
         } else {
-          toast.error(response.data.message, {
+          toast.error(response.data.message || "Login failed", {
             position: "top-center",
           });
         }
       }
     } catch (error) {
-      toast.error(error.message, { position: "top-center" });
+      if (error.response) {
+        toast.error(error.response.data.message || error.message, {
+          position: "top-center",
+        });
+      } else if (error.request) {
+        toast.error("No response from server", { position: "top-center" });
+      } else {
+        toast.error(error.message, { position: "top-center" });
+      }
     }
   };
+  
 
   return (
     <div className="block md:flex flex-row gap-0 h-screen ">

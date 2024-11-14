@@ -43,6 +43,24 @@ export const CartProvider = ({ children }) => {
       return updatedItems;
     });
   };
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+  const saveUser = (userData) => {
+    if (userData) {
+      setUser(userData);
+      localStorage.setItem("user", JSON.stringify(userData));
+      console.log(userData);
+      
+    }
+  };
+  
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("user");
+  };
 
   return (
     <CartContext.Provider
@@ -51,6 +69,9 @@ export const CartProvider = ({ children }) => {
         addToCart,
         removeFromCart,
         currency,
+        user,
+        saveUser,
+        logout
       }}
     >
       {children}

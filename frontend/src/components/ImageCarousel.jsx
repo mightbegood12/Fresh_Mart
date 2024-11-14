@@ -48,7 +48,7 @@ const ImageCarousel = () => {
   return (
     <section
       aria-label="Grocery Carousel"
-      className="flex items-center min-h-96 justify-center drop-shadow-md overflow-hidden"
+      className="flex items-center md:min-h-96 justify-center drop-shadow-md overflow-hidden"
     >
       {isloading ? (
         <HashLoader

@@ -6,7 +6,6 @@ import { Flip, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { backendURL } from "../App";
-import { useCart } from "../context/CartContext.jsx";
 
 export default function SignIn({ setToken }) {
   const [isSigned, setIsSigned] = useState("Sign Up");
@@ -14,7 +13,6 @@ export default function SignIn({ setToken }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -25,7 +23,7 @@ export default function SignIn({ setToken }) {
           email,
           password,
         });
-  
+
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem("user", JSON.stringify({ name, email }));
@@ -51,7 +49,7 @@ export default function SignIn({ setToken }) {
           email,
           password,
         });
-  
+
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem("user", JSON.stringify({ email }));
@@ -85,7 +83,6 @@ export default function SignIn({ setToken }) {
       }
     }
   };
-  
 
   return (
     <div className="block md:flex flex-row gap-0 h-screen ">

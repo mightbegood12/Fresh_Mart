@@ -48,7 +48,7 @@ const ImageCarousel = () => {
   return (
     <section
       aria-label="Grocery Carousel"
-      className="flex items-center justify-center drop-shadow-md overflow-hidden"
+      className="flex items-center md:min-h-96 justify-center drop-shadow-md overflow-hidden"
     >
       {isloading ? (
         <HashLoader
@@ -56,7 +56,7 @@ const ImageCarousel = () => {
           size={100}
           cssOverride={{
             height: "24rem",
-            width: "24rem",
+            width: "72rem",
           }}
           speedMultiplier={4}
         />

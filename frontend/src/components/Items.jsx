@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import DynamicButton from "./DynamicButton";
 import { currency } from "../constants/constant.js";
+import { useEffect, useState } from "react";
+import cacheImages from "../Utils/cacheImages.jsx";
 
 const Items = ({ item, categoryTitle }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const scrollToTop = () => {
     window.scrollTo(0, 0);
   };
@@ -15,6 +18,13 @@ const Items = ({ item, categoryTitle }) => {
       scrollToTop(); // Only scroll to top if it's not a button click
     }
   };
+
+  useEffect(() => {
+    setIsLoading(true);
+    cacheImages(item.images);
+    setIsLoading(false);
+  }, [item.images]);
+
   return (
     <>
       <Link
@@ -25,7 +35,11 @@ const Items = ({ item, categoryTitle }) => {
       >
         <div className="itemWrapper px-4 flex flex-col drop-shadow-sm md:hover:scale-110  ease-in-out duration-300 gap-3 max-w-40 flex-shrink-0 rounded-lg p-4 border-[1px] border-opacity-30 border-gray-400 m-2 items-center justify-center">
           <div className="img object-cover">
-            <img src={item.images[0]} alt={item.name} />
+            {isLoading ? (
+              <div className="bg-gray-100 h-[120px] w-[120px] animate-pulse"></div>
+            ) : (
+              <div className="bg-gray-100 h-[120px] w-[120px] animate-pulse"></div>
+            )}
           </div>
           <div className="info flex flex-col gap-1 items-start justify-start ">
             <span className="font-semibold mt-1">{item.name}</span>

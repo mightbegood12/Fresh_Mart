@@ -41,7 +41,11 @@ export default function Profile() {
   }
 
   return (
+<<<<<<< HEAD
     <div className="flex items-center justify-center bg-gray-50">
+=======
+    <div className="flex items-center justify-center min-h-[80vh] bg-gray-50">
+>>>>>>> 1e913a84aba406fde2c7d5a4da69c75d95c147d1
       <div className="bg-slate-100 shadow-md rounded-lg m-10 p-6 w-96">
         <div className="flex flex-col items-center">
           <img

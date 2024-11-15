@@ -6,7 +6,10 @@ import { Flip, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { backendURL } from "../App";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1e913a84aba406fde2c7d5a4da69c75d95c147d1
 
 export default function SignIn({ setToken }) {
   const [isSigned, setIsSigned] = useState("Sign Up");
@@ -14,7 +17,6 @@ export default function SignIn({ setToken }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -25,7 +27,7 @@ export default function SignIn({ setToken }) {
           email,
           password,
         });
-  
+
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
@@ -35,7 +37,7 @@ export default function SignIn({ setToken }) {
             theme: "colored",
             transition: Flip,
           });
-          navigate("/");
+          setIsSigned("Login");
         } else {
           toast.error(response.data.message || "Registration failed", {
             position: "top-center",
@@ -46,7 +48,7 @@ export default function SignIn({ setToken }) {
           email,
           password,
         });
-  
+
         if (response.data.success) {
           const token = response.data.token;
           setToken(token);
@@ -87,8 +89,11 @@ export default function SignIn({ setToken }) {
       }
     }
   };
+<<<<<<< HEAD
   
   
+=======
+>>>>>>> 1e913a84aba406fde2c7d5a4da69c75d95c147d1
 
   return (
     <div className="block md:flex flex-row gap-0 h-screen ">

@@ -6,7 +6,7 @@ import { Flip, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { backendURL } from "../App";
-import { useCart } from "../context/CartContext.jsx";
+
 
 export default function SignIn({ setToken }) {
   const [isSigned, setIsSigned] = useState("Sign Up");
@@ -28,15 +28,10 @@ export default function SignIn({ setToken }) {
   
         if (response.data.success) {
           setToken(response.data.token);
-          localStorage.setItem("user", JSON.stringify({ name, email }));
+          localStorage.setItem("token", response.data.token);
           toast.success("Account Created Successfully!", {
             position: "top-center",
             autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
             theme: "colored",
             transition: Flip,
           });
@@ -53,16 +48,23 @@ export default function SignIn({ setToken }) {
         });
   
         if (response.data.success) {
-          setToken(response.data.token);
-          localStorage.setItem("user", JSON.stringify({ email }));
+          const token = response.data.token;
+          setToken(token);
+          localStorage.setItem("token", token);
+  
+          // Fetch user details from the profile endpoint
+          const userResponse = await axios.get(backendURL + "/api/user/profile", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+  
+          const { name, email } = userResponse.data.user;
+          localStorage.setItem("user", JSON.stringify({ name, email }));
+  
           toast.success("Login Successfully!", {
             position: "top-center",
             autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
             theme: "colored",
             transition: Flip,
           });
@@ -85,6 +87,7 @@ export default function SignIn({ setToken }) {
       }
     }
   };
+  
   
 
   return (

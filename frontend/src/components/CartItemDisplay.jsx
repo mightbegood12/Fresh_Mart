@@ -10,7 +10,11 @@ const CartItemDisplay = ({ groupedItems }) => {
     >
       <div className="flex flex-row gap-6">
         <div className="img object-cover">
-          <img src={item.images[0]} alt={item.name} />
+          <img
+            className="h-[120px] w-[120px] object-cover"
+            src={item.images[0]}
+            alt={item.name}
+          />
         </div>
         <div className="info flex flex-col gap-1 items-start justify-between">
           <span className="font-semibold mt-1">{item.name}</span>

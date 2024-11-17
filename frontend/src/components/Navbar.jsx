@@ -9,7 +9,7 @@ import { useState } from "react";
 import { Flip, toast } from "react-toastify";
 
 const Navbar = ({ token, setToken }) => {
-  const { cartItems, user } = useCart();
+  const { cartItems } = useCart();
   const [visible, setVisible] = useState(false);
 
   const location = useLocation();
@@ -73,7 +73,6 @@ const Navbar = ({ token, setToken }) => {
                 alt="User Avatar"
                 className="w-14 h-14 rounded-full object-cover"
               />
-              {console.log(user)}
             </NavLink>
             <div className="bg-white rounded-sm h-max w-32 absolute top-12 -left-[40px] shadow-md hidden group-hover:flex flex-col">
               <NavLink

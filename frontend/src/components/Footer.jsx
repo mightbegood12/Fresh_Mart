@@ -1,6 +1,4 @@
-import { categoriesData } from "../categoriesData";
-
-const Footer = () => {
+const Footer = ({ availableCategories }) => {
   return (
     <footer className="text-black p-8 border-t-[1px]">
       <div className="max-w-screen-xl mx-auto px-4">
@@ -9,9 +7,9 @@ const Footer = () => {
           <div>
             <h4 className="text-xl font-semibold mb-4">Categories</h4>
             <ul className="list-none space-y-2 text-gray-400">
-              {categoriesData.map((category, idx) => (
+              {availableCategories.map((category, idx) => (
                 <li href="#{idx}" key={idx}>
-                  {category.title}
+                  {category}
                 </li>
               ))}
             </ul>

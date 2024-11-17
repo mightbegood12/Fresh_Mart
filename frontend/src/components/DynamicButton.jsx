@@ -15,7 +15,7 @@ export default function DynamicButton({ item, selectedUnit }) {
   };
 
   // Filter cartItems for the specific item by matching its ID for specific product in the BUTTON
-  let itemInCart = cartItems.filter((cartItem) => cartItem.id === item.id);
+  let itemInCart = cartItems.filter((cartItem) => cartItem._id === item._id);
 
   return (
     <>

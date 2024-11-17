@@ -37,7 +37,7 @@ const List = ({ token }) => {
 
   useEffect(() => {
     fetchList();
-  }, []);
+  }, [list]);
 
   return (
     <div className="flex flex-col w-[82%] gap-2 p-2">

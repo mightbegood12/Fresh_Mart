@@ -6,10 +6,6 @@ import { Flip, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { backendURL } from "../App";
-<<<<<<< HEAD
-
-=======
->>>>>>> 1e913a84aba406fde2c7d5a4da69c75d95c147d1
 
 export default function SignIn({ setToken }) {
   const [isSigned, setIsSigned] = useState("Sign Up");
@@ -53,17 +49,20 @@ export default function SignIn({ setToken }) {
           const token = response.data.token;
           setToken(token);
           localStorage.setItem("token", token);
-  
+
           // Fetch user details from the profile endpoint
-          const userResponse = await axios.get(backendURL + "/api/user/profile", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-  
+          const userResponse = await axios.get(
+            backendURL + "/api/user/profile",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
           const { name, email } = userResponse.data.user;
           localStorage.setItem("user", JSON.stringify({ name, email }));
-  
+
           toast.success("Login Successfully!", {
             position: "top-center",
             autoClose: 2000,
@@ -89,11 +88,6 @@ export default function SignIn({ setToken }) {
       }
     }
   };
-<<<<<<< HEAD
-  
-  
-=======
->>>>>>> 1e913a84aba406fde2c7d5a4da69c75d95c147d1
 
   return (
     <div className="block md:flex flex-row gap-0 h-screen ">

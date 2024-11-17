@@ -5,7 +5,7 @@ import { backendURL } from "../App";
 import ScaleLoader from "react-spinners/ScaleLoader";
 
 export default function Profile() {
-  const [user, setUser] = useState({ name: "", email: "" });
+  const [user, setUser] = useState({ name: "", email: "", _id: "" });
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -19,9 +19,9 @@ export default function Profile() {
           },
         })
         .then((response) => {
-          const { name, email } = response.data.user;
-          setUser({ name, email });
-          localStorage.setItem("user", JSON.stringify({ name, email }));
+          const { name, email, _id } = response.data.user;
+          setUser({ name, email, _id });
+          localStorage.setItem("user", JSON.stringify({ name, email, _id }));
         })
         .catch((error) => {
           console.error(error);

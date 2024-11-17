@@ -86,7 +86,6 @@ const adminLogin = async (req, res) => {
   }
 };
 
-
 const getProfile = async (req, res) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
@@ -96,16 +95,46 @@ const getProfile = async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
     const user = await userModel.findById(decoded.id).select("-password");
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
     res.json({ success: true, user });
+    // console.log(user);
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
 
-export { loginUser, registerUser, adminLogin, getProfile };
+const updateCart = async (req, res) => {
+  const userId = req.params.id;
+  const { cartData } = req.body;
 
+  try {
+    if (!cartData) {
+      return res
+        .status(400)
+        .json({ success: false, message: "No cart information" });
+    }
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userId,
+      { $set: { cartData } }, // Replace the entire cartData array
+      { new: true } // Return the updated user document
+    );
 
+    if (!updatedUser) {
+      return res.status(404).json({ success: false, error: "User not found" });
+    }
 
+    res.json({
+      message: "Cart updated successfully",
+      cartData: updatedUser.cartData,
+    });
+  } catch (error) {
+    console.error("Error updating cartData:", error);
+    res.status(500).json({ success: false, error: "Internal server error" });
+  }
+};
+
+export { loginUser, registerUser, adminLogin, getProfile, updateCart };

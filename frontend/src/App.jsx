@@ -9,7 +9,6 @@ import CartItems from "./components/CartItems";
 import Cart from "./pages/Cart";
 import Footer from "./components/Footer";
 import ItemView from "./pages/ItemView";
-// import { categoriesData } from "./categoriesData";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -50,7 +49,7 @@ function AppContent() {
 
   list.filter((product) =>
     availableCategories.includes(product.category)
-      ? console.log("not pushed")
+      ? availableCategories
       : availableCategories.push(product.category)
   );
 

@@ -5,11 +5,15 @@ import groupItemsById from "../Utils/groupItemsById";
 import { SITE_CHARGES, DELIVERY_FEE, currency } from "../constants/constant.js";
 import { useState } from "react";
 import { Title } from "../components/Title";
+import FormComponent from "../components/FormComponent.jsx";
+import { toast } from "react-toastify";
 
 export default function Cart() {
   const { cartItems } = useCart();
   const groupedItems = groupItemsById(cartItems);
   const [checkout, setCheckout] = useState(false);
+  const [formData, setFormData] = useState({});
+  const [selectedPayment, setSelectedPayment] = useState("");
 
   // Calculate total price for all items in the cart
   const totalAmount = groupedItems.reduce(
@@ -20,6 +24,10 @@ export default function Cart() {
   const handleCheckout = () => {
     setCheckout(true);
     if (checkout) setCheckout(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -34,10 +42,18 @@ export default function Cart() {
         </div>
       ) : (
         <div className="flex flex-col min-h-[80vh] md:flex-row gap-1">
-          <div className="flex flex-col w-full md:w-2/4 p-2 my-4 ml-4">
-            <Title titleText="Cart Items" />
-            <CartItemDisplay groupedItems={groupedItems} />
-          </div>
+          {!checkout ? (
+            <div className="flex flex-col w-full md:w-2/4 p-2 my-4 ml-4">
+              <Title titleText="Cart Items" />
+              <CartItemDisplay groupedItems={groupedItems} />
+            </div>
+          ) : (
+            <div className="flex flex-col w-max md:w-2/4 p-2 my-4 md:ml-4">
+              <Title titleText="Delivery Information" />
+              <FormComponent setFormInfo={setFormData} />
+            </div>
+          )}
+
           <div className="h-[2px] w-auto md:h-auto  md:w-[2px] bg-gray-400 bg-opacity-40">
             {/* Vertical line */}
           </div>
@@ -85,7 +101,7 @@ export default function Cart() {
             <div className="flex flex-row gap-4">
               <button
                 onClick={handleCheckout}
-                className="flex justify-center gap-2 items-center shadow-xl text-lg text-white bg-gray-600 backdrop-blur-md lg:font-semibold isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-orange-300 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
+                className="flex justify-center gap-2 items-center shadow-xl text-lg text-white bg-red-600 backdrop-blur-md lg:font-semibold isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-orange-600 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
               >
                 Checkout
                 <svg
@@ -103,6 +119,83 @@ export default function Cart() {
             {checkout ? (
               <div className="mt-4 duration-550 ease-in-out">
                 <Title titleText="Payment Options" />
+                <form
+                  className="flex flex-col gap-4 p-6  rounded-lg"
+                  onSubmit={handleSubmit}
+                >
+                  <h2 className="text-xl font-semibold text-gray-700">
+                    Select Payment Method
+                  </h2>
+                  <div className="flex flex-col md:flex-row gap-2">
+                    <div className="flex flex-row items-center gap-2 p-2 bg-gray border">
+                      <input
+                        type="radio"
+                        id="razorpay"
+                        name="payment"
+                        value="Razorpay"
+                        onChange={(e) => {
+                          setSelectedPayment(e.target.value);
+                          toast.dark("Not available currently");
+                        }}
+                        className="h-5 w-5 text-blue-500 focus:ring-blue-400"
+                      />
+                      <label htmlFor="razorpay" className="text-gray-600">
+                        <img
+                          className="h-6 "
+                          src="https://latestlogo.com/wp-content/uploads/2024/01/razorpay-logo.png"
+                          alt=""
+                        />
+                      </label>
+                    </div>
+
+                    <div className="flex items-center gap-2 p-2 bg-gray border">
+                      <input
+                        type="radio"
+                        id="stripe"
+                        name="payment"
+                        value="Stripe"
+                        onChange={(e) => {
+                          setSelectedPayment(e.target.value);
+                          toast.dark("Not available currently");
+                        }}
+                        className="h-5 w-5 text-blue-500 focus:ring-blue-400"
+                      />
+                      <label htmlFor="stripe" className="text-gray-600">
+                        <img
+                          src="https://logos-world.net/wp-content/uploads/2021/03/Stripe-Logo.png"
+                          className="h-8 "
+                          alt=""
+                        />
+                      </label>
+                    </div>
+
+                    <div className="flex items-center gap-2  p-2 bg-gray border">
+                      <input
+                        type="radio"
+                        id="cashondelivery"
+                        name="payment"
+                        value="Cash on Delivery"
+                        onChange={(e) => {
+                          setSelectedPayment(e.target.value);
+                        }}
+                        className="h-5 w-5 text-blue-500 focus:ring-blue-400"
+                      />
+                      <label
+                        htmlFor="cashondelivery"
+                        className="text-gray-600 font-bold"
+                      >
+                        Cash on Delivery
+                      </label>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="mt-4 p-2 w-[80%] bg-orange-600 text-white rounded-lg hover:bg-red-600 focus:ring focus:ring-blue-300"
+                  >
+                    Place Order
+                  </button>
+                </form>
               </div>
             ) : (
               ""

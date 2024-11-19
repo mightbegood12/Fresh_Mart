@@ -21,13 +21,24 @@ export default function Cart() {
     0
   );
 
+  console.log(formData);
+  console.log(selectedPayment);
+
   const handleCheckout = () => {
     setCheckout(true);
     if (checkout) setCheckout(false);
   };
 
-  const handleSubmit = async (e) => {
+  // const addOrder = async(formData,selectedPayment,totalAmount) =>{
+
+  // }
+
+  const handleSubmit = (e) => {
     e.preventDefault();
+    toast.info("Order Placed Successfully", {
+      position: "top-center",
+      autoClose: 2000,
+    });
   };
 
   return (
@@ -43,12 +54,12 @@ export default function Cart() {
       ) : (
         <div className="flex flex-col min-h-[80vh] md:flex-row gap-1">
           {!checkout ? (
-            <div className="flex flex-col w-full md:w-2/4 p-2 my-4 ml-4">
+            <div className="flex flex-col md:w-2/4 p-2 my-4 ml-4">
               <Title titleText="Cart Items" />
               <CartItemDisplay groupedItems={groupedItems} />
             </div>
           ) : (
-            <div className="flex flex-col w-max md:w-2/4 p-2 my-4 md:ml-4">
+            <div className="flex flex-col md:w-2/4 p-2 my-4 ml-4">
               <Title titleText="Delivery Information" />
               <FormComponent setFormInfo={setFormData} />
             </div>
@@ -57,7 +68,7 @@ export default function Cart() {
           <div className="h-[2px] w-auto md:h-auto  md:w-[2px] bg-gray-400 bg-opacity-40">
             {/* Vertical line */}
           </div>
-          <div className="flex flex-col w-2/4 p-2 my-4 ml-4 h-vh">
+          <div className="flex flex-col md:w-2/4 p-2 my-4 ml-4 h-vh">
             {/* Right column */}
             <Title titleText="Bill Details" />
             <div className="flex flex-col w-max gap-1 pt-4 mb-6">
@@ -120,14 +131,14 @@ export default function Cart() {
               <div className="mt-4 duration-550 ease-in-out">
                 <Title titleText="Payment Options" />
                 <form
-                  className="flex flex-col gap-4 p-6  rounded-lg"
+                  className="flex flex-col gap-4 p-6 rounded-lg"
                   onSubmit={handleSubmit}
                 >
                   <h2 className="text-xl font-semibold text-gray-700">
                     Select Payment Method
                   </h2>
-                  <div className="flex flex-col md:flex-row gap-2">
-                    <div className="flex flex-row items-center gap-2 p-2 bg-gray border">
+                  <div className="flex flex-col justify-center md:flex-row gap-4">
+                    <div className="flex flex-row flex-shrink-0 items-center gap-2 p-2 bg-gray border">
                       <input
                         type="radio"
                         id="razorpay"
@@ -135,20 +146,22 @@ export default function Cart() {
                         value="Razorpay"
                         onChange={(e) => {
                           setSelectedPayment(e.target.value);
-                          toast.dark("Not available currently");
+                          toast.dark("We are working on it!", {
+                            autoClose: 1500,
+                          });
                         }}
                         className="h-5 w-5 text-blue-500 focus:ring-blue-400"
                       />
                       <label htmlFor="razorpay" className="text-gray-600">
                         <img
-                          className="h-6 "
+                          className="h-6 aspect-[48/12]"
                           src="https://latestlogo.com/wp-content/uploads/2024/01/razorpay-logo.png"
                           alt=""
                         />
                       </label>
                     </div>
 
-                    <div className="flex items-center gap-2 p-2 bg-gray border">
+                    <div className="flex items-center flex-shrink-0 gap-2 p-2 bg-gray border">
                       <input
                         type="radio"
                         id="stripe"
@@ -156,20 +169,22 @@ export default function Cart() {
                         value="Stripe"
                         onChange={(e) => {
                           setSelectedPayment(e.target.value);
-                          toast.dark("Not available currently");
+                          toast.dark("We are working on it!", {
+                            autoClose: 1500,
+                          });
                         }}
                         className="h-5 w-5 text-blue-500 focus:ring-blue-400"
                       />
                       <label htmlFor="stripe" className="text-gray-600">
                         <img
                           src="https://logos-world.net/wp-content/uploads/2021/03/Stripe-Logo.png"
-                          className="h-8 "
+                          className="h-8 aspect-[16/9]"
                           alt=""
                         />
                       </label>
                     </div>
 
-                    <div className="flex items-center gap-2  p-2 bg-gray border">
+                    <div className="flex items-center flex-shrink-0 gap-2  p-2 bg-gray border">
                       <input
                         type="radio"
                         id="cashondelivery"
@@ -182,7 +197,7 @@ export default function Cart() {
                       />
                       <label
                         htmlFor="cashondelivery"
-                        className="text-gray-600 font-bold"
+                        className="text-gray-600 text-sm md:text-md font-bold"
                       >
                         Cash on Delivery
                       </label>
@@ -191,7 +206,7 @@ export default function Cart() {
 
                   <button
                     type="submit"
-                    className="mt-4 p-2 w-[80%] bg-orange-600 text-white rounded-lg hover:bg-red-600 focus:ring focus:ring-blue-300"
+                    className="mt-4 px-4 py-2 w-max md:w-80 self-center bg-orange-600 text-white rounded-lg hover:bg-red-600"
                   >
                     Place Order
                   </button>

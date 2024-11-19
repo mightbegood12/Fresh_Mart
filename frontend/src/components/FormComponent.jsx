@@ -28,7 +28,7 @@ const FormComponent = ({ setFormInfo }) => {
   };
 
   return (
-    <form className="flex flex-col  gap-2 my-4 mx-6" onSubmit={handleSubmit}>
+    <form className="flex flex-col gap-2 my-4 mx-6" onSubmit={handleSubmit}>
       <label className="grid grid-cols-2 gap-2">
         <input
           className="p-2 border"

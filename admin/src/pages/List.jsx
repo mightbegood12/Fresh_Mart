@@ -29,7 +29,8 @@ const List = ({ token }) => {
         { id },
         { headers: { token } }
       );
-      console.log(response);
+      // console.log(response);
+      toast.info("Product Removed");
     } catch (error) {
       toast.error(error.message);
     }

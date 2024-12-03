@@ -63,7 +63,7 @@ export default function SignIn({ setToken }) {
           const { name, email } = userResponse.data.user;
           localStorage.setItem("user", JSON.stringify({ name, email }));
 
-          toast.success("Login Successfully!", {
+          toast.success("Login Successfull!", {
             position: "top-center",
             autoClose: 2000,
             theme: "colored",
@@ -163,7 +163,6 @@ export default function SignIn({ setToken }) {
         className="absolute md:relative opacity-15 md:opacity-100 w-full h-full top-0 -z-10 object-cover md:w-2/4 object-center"
         src={signinPoster}
         alt=""
-        loading="lazy"
       />
     </div>
   );

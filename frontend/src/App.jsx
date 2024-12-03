@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
-import SignUp from "./pages/SignUp";
+import Orders from "./pages/Orders";
 import SignIn from "./pages/SignIn";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
@@ -13,6 +13,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { AdminLink } from "./components/adminLink";
+import ScrollTop from "./components/ScrollTop";
+import PageNotFound from "./pages/PageNotFound";
 export const backendURL = import.meta.env.VITE_BACKEND_URL;
 
 // Main content of the app with Navbar control
@@ -78,10 +80,11 @@ function AppContent() {
           }
         />
         <Route path="/sign-in" element={<SignIn setToken={setToken} />} />
-        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/my-orders" element={<Orders />} />
         <Route path="/profile" element={<Profile setToken={setToken} />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/item-view/:id" element={<ItemView />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
 
       <footer>
@@ -92,6 +95,7 @@ function AppContent() {
           <CartItems />
         </div>
       )}
+      <ScrollTop />
       <AdminLink />
     </>
   );

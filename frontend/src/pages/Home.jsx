@@ -6,7 +6,7 @@ import EasyAccess from "../components/EasyAccess";
 export default function Home({ productData, availableCategories }) {
   return (
     <div className="min-h-screen mb-8 md:mb-12 flex flex-col gap-2">
-      <EasyAccess />
+      <EasyAccess categories={availableCategories} />
       <ImageCarousel />
       {availableCategories.map((category, index) => (
         <Categories key={index} categoryTitle={category} items={productData} />

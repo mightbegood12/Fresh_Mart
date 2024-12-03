@@ -1,22 +1,22 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
-export default function EasyAccess() {
+export default function EasyAccess({ categories }) {
   const [dropdown, setDropDown] = useState(false);
   const dropdownRef = useRef(null);
 
-  const groceries = [
-    "Bread",
-    "Eggs",
-    "Milk",
-    "Chicken breast",
-    "Rice",
-    "Apples",
-    "Carrots",
-    "Butter",
-    "Pasta",
-    "Olive oil",
-  ];
+  // const groceries = [
+  //   "Bread",
+  //   "Eggs",
+  //   "Milk",
+  //   "Chicken breast",
+  //   "Rice",
+  //   "Apples",
+  //   "Carrots",
+  //   "Butter",
+  //   "Pasta",
+  //   "Olive oil",
+  // ];
 
   const handleDropDown = () => {
     setDropDown((prev) => !prev); // Toggle dropdown
@@ -52,7 +52,7 @@ export default function EasyAccess() {
         </button>
         {dropdown && (
           <ul className="absolute z-30 bg-white shadow-md w-32 mt-2 mr-20 border rounded">
-            {groceries.map((item) => (
+            {categories.map((item) => (
               <li
                 key={item}
                 className="px-4 py-2 text-gray-600 cursor-pointer hover:bg-gray-100"

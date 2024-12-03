@@ -41,7 +41,7 @@ export default function Profile() {
   return (
     <div className="h-screen">
       <div className="flex items-center justify-center min-h-[80vh]">
-        <div className="bg-slate-100 h-[30vh] shadow-md rounded-lg m-10 p-6 w-96">
+        <div className="bg-slate-100 h-[50vh] flex items-center justify-center shadow-md rounded-lg m-10 p-6 w-96">
           <div className="flex flex-col items-center">
             <img
               className="w-20 h-20 rounded-full object-cover "

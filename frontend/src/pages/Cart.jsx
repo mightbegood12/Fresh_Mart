@@ -1,44 +1,109 @@
 import { useCart } from "../context/CartContext";
 import CartItemDisplay from "../components/CartItemDisplay";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import groupItemsById from "../Utils/groupItemsById";
 import { SITE_CHARGES, DELIVERY_FEE, currency } from "../constants/constant.js";
 import { useState } from "react";
 import { Title } from "../components/Title";
 import FormComponent from "../components/FormComponent.jsx";
-import { toast } from "react-toastify";
+import { Flip, toast } from "react-toastify";
+import axios from "axios";
+import { backendURL } from "../App.jsx";
 
 export default function Cart() {
   const { cartItems } = useCart();
   const groupedItems = groupItemsById(cartItems);
   const [checkout, setCheckout] = useState(false);
-  const [formData, setFormData] = useState({});
+  const [paymentStatus, setPaymentStatus] = useState("Pending");
+  const [formData, setFormData] = useState({
+    value: "empty",
+  });
+  const user = localStorage.getItem("user");
+  const userId = user ? JSON.parse(user)._id : "no user";
+
   const [selectedPayment, setSelectedPayment] = useState("");
+  const navigate = useNavigate();
 
   // Calculate total price for all items in the cart
-  const totalAmount = groupedItems.reduce(
+  let totalAmount = groupedItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
-
-  console.log(formData);
-  console.log(selectedPayment);
+  totalAmount = totalAmount + DELIVERY_FEE + SITE_CHARGES;
 
   const handleCheckout = () => {
-    setCheckout(true);
-    if (checkout) setCheckout(false);
+    if (localStorage.getItem("user") && !checkout) {
+      setCheckout(true);
+    } else if (checkout) {
+      setCheckout(false);
+    } else {
+      toast.dark("Please Login to continue!", {
+        autoClose: 3000,
+        position: "top-center",
+      });
+      setCheckout(false);
+    }
   };
 
-  // const addOrder = async(formData,selectedPayment,totalAmount) =>{
+  const updateOrderInfo = async (id) => {
+    try {
+      const getOrderId = await axios.put(
+        backendURL + `/api/user/${userId}/store-order`,
+        {
+          orderId: id,
+        }
+      );
+      if (getOrderId.data.success) {
+        toast.info("OrderId Updated successfully");
+      } else {
+        toast.error("OrderId not updated");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  // }
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    toast.info("Order Placed Successfully", {
-      position: "top-center",
-      autoClose: 2000,
-    });
+    if (formData.value === "empty") {
+      toast.error("Fill Form data");
+      return;
+    } else {
+      try {
+        const orderResponse = await axios.post(
+          backendURL + "/api/order/create",
+          {
+            formData,
+            paymentType: selectedPayment,
+            totalAmount,
+            paymentStatus,
+            orderedItems: cartItems,
+          }
+        );
+        if (orderResponse.data.success) {
+          toast.success("Order Placed Successfully!", {
+            position: "top-center",
+            autoClose: 2000,
+            theme: "colored",
+            transition: Flip,
+          });
+          updateOrderInfo(orderResponse.data.order._id);
+          setPaymentStatus(paymentStatus);
+          localStorage.removeItem("cartData");
+          navigate("/my-orders");
+        } else {
+          toast.error(orderResponse.data.message || "Order failed", {
+            position: "top-center",
+          });
+        }
+      } catch (e) {
+        if (e.response) {
+          toast.error(e.response.data.message || e.message, {
+            position: "top-center",
+          });
+        }
+      }
+    }
   };
 
   return (
@@ -61,7 +126,7 @@ export default function Cart() {
           ) : (
             <div className="flex flex-col md:w-2/4 p-2 my-4 ml-4">
               <Title titleText="Delivery Information" />
-              <FormComponent setFormInfo={setFormData} />
+              <FormComponent setFormInfo={setFormData} formData={formData} />
             </div>
           )}
 
@@ -105,7 +170,7 @@ export default function Cart() {
               <hr className="border-none h-[1px] w-[12rem] bg-gray-600" />
               <div className="font-bold text-lg mt-4">
                 Total Amount: {currency}
-                {(totalAmount + DELIVERY_FEE + SITE_CHARGES).toFixed(2)}
+                {totalAmount.toFixed(2)}
               </div>
             </div>
             {/* <hr className="border-none h-[2px] w-auto bg-gray-400" /> */}
@@ -138,35 +203,50 @@ export default function Cart() {
                     Select Payment Method
                   </h2>
                   <div className="flex flex-col justify-center md:flex-row gap-4">
-                    <div className="flex flex-row flex-shrink-0 items-center gap-2 p-2 bg-gray border">
+                    <div
+                      onClick={() => {
+                        toast.dark("We are working on it!", {
+                          autoClose: 1500,
+                        });
+                      }}
+                      className="flex flex-row flex-shrink-0 items-center gap-2 p-2 bg-gray unselectable border"
+                    >
                       <input
                         type="radio"
                         id="razorpay"
                         name="payment"
                         value="Razorpay"
+                        required
+                        disabled
                         onChange={(e) => {
                           setSelectedPayment(e.target.value);
-                          toast.dark("We are working on it!", {
-                            autoClose: 1500,
-                          });
                         }}
                         className="h-5 w-5 text-blue-500 focus:ring-blue-400"
                       />
                       <label htmlFor="razorpay" className="text-gray-600">
                         <img
-                          className="h-6 aspect-[48/12]"
+                          className="h-6 w-24"
                           src="https://latestlogo.com/wp-content/uploads/2024/01/razorpay-logo.png"
                           alt=""
                         />
                       </label>
                     </div>
 
-                    <div className="flex items-center flex-shrink-0 gap-2 p-2 bg-gray border">
+                    <div
+                      onClick={() => {
+                        toast.dark("We are working on it!", {
+                          autoClose: 1500,
+                        });
+                      }}
+                      className="flex items-center flex-shrink-0 gap-2 p-2 bg-gray unselectable border"
+                    >
                       <input
                         type="radio"
                         id="stripe"
                         name="payment"
                         value="Stripe"
+                        required
+                        disabled
                         onChange={(e) => {
                           setSelectedPayment(e.target.value);
                           toast.dark("We are working on it!", {
@@ -190,6 +270,7 @@ export default function Cart() {
                         id="cashondelivery"
                         name="payment"
                         value="Cash on Delivery"
+                        required
                         onChange={(e) => {
                           setSelectedPayment(e.target.value);
                         }}

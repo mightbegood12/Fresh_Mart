@@ -106,6 +106,26 @@ const getProfile = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+const getUserOrder = async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const user = await userModel.findById(decoded.id).select("-password");
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+    res.json({ success: true, orderId: user.orderId });
+    // console.log(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
 const updateCart = async (req, res) => {
   const userId = req.params.id;
@@ -136,5 +156,42 @@ const updateCart = async (req, res) => {
     res.status(500).json({ success: false, error: "Internal server error" });
   }
 };
+const storeOrder = async (req, res) => {
+  const userId = req.params.id;
+  const { orderId } = req.body;
+  try {
+    if (!orderId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "No Order info information" });
+    }
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userId,
+      { $addToSet: { orderId } } // Updates existing array
+      // { new: true } // Return the updated user document
+    );
 
-export { loginUser, registerUser, adminLogin, getProfile, updateCart };
+    if (!updatedUser) {
+      return res.status(404).json({ success: false, error: "User not found" });
+    }
+
+    res.json({
+      success: true,
+      message: "Order details updated successfully",
+      orderId: updatedUser.orderId,
+    });
+  } catch (error) {
+    console.error("Error updating orderId", error);
+    res.status(500).json({ success: false, error: "Internal server error" });
+  }
+};
+
+export {
+  loginUser,
+  registerUser,
+  adminLogin,
+  getProfile,
+  updateCart,
+  storeOrder,
+  getUserOrder,
+};

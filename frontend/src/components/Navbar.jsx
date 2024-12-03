@@ -82,6 +82,12 @@ const Navbar = ({ token, setToken }) => {
               >
                 Profile
               </NavLink>
+              <NavLink
+                className="px-4 py-2 text-sm text-center hover:bg-red-100"
+                to="/my-orders"
+              >
+                My Orders
+              </NavLink>
               <button
                 onClick={handleLogout}
                 className="px-4 py-2 text-sm hover:bg-red-100"

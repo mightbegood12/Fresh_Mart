@@ -8,7 +8,7 @@ const Footer = ({ availableCategories }) => {
             <h4 className="text-xl font-semibold mb-4">Categories</h4>
             <ul className="list-none space-y-2 text-gray-400">
               {availableCategories.map((category, idx) => (
-                <li href="#{idx}" key={idx}>
+                <li className="cursor-pointer" href="#{idx}" key={idx}>
                   {category}
                 </li>
               ))}

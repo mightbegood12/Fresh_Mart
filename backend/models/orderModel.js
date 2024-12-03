@@ -14,6 +14,14 @@ const orderSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    paymentStatus: {
+      type: String,
+      required: true,
+    },
+    orderedItems: {
+      type: Array,
+      required: true,
+    },
   },
   { timestamps: true }
 );

@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const FormComponent = ({ setFormInfo }) => {
+  const user = localStorage.getItem("user");
+  const userName = user ? JSON.parse(user).name : "";
+  const userEmail = user ? JSON.parse(user).email : "";
   const [formData, setFormData] = useState({
-    firstName: "",
+    firstName: userName,
     lastName: "",
-    email: "",
+    email: userEmail,
     street: "",
     city: "",
     state: "",
@@ -22,7 +25,7 @@ const FormComponent = ({ setFormInfo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormInfo(formData);
-    toast.info("Delivery Information Submited", {
+    toast.info("Delivery Information Submited. Now Place Order", {
       position: "top-center",
     });
   };
@@ -37,6 +40,7 @@ const FormComponent = ({ setFormInfo }) => {
           placeholder="First Name"
           value={formData.firstName}
           onChange={handleChange}
+          required
         />
         <input
           className="p-2 border"
@@ -45,6 +49,7 @@ const FormComponent = ({ setFormInfo }) => {
           placeholder="Last Name"
           value={formData.lastName}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -55,6 +60,7 @@ const FormComponent = ({ setFormInfo }) => {
           placeholder="Email Address"
           value={formData.email}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -65,6 +71,7 @@ const FormComponent = ({ setFormInfo }) => {
           placeholder="Street"
           value={formData.street}
           onChange={handleChange}
+          required
         />
       </label>
       <label className="grid grid-cols-2 gap-2">
@@ -75,6 +82,7 @@ const FormComponent = ({ setFormInfo }) => {
           placeholder="City"
           value={formData.city}
           onChange={handleChange}
+          required
         />
         <input
           className="p-2 border"
@@ -83,6 +91,7 @@ const FormComponent = ({ setFormInfo }) => {
           placeholder="State"
           value={formData.state}
           onChange={handleChange}
+          // required
         />
       </label>
       <label className="grid grid-cols-2 gap-2">
@@ -93,6 +102,7 @@ const FormComponent = ({ setFormInfo }) => {
           placeholder="Zipcode"
           value={formData.zipcode}
           onChange={handleChange}
+          // required
         />
         <input
           className="p-2 border"
@@ -101,6 +111,7 @@ const FormComponent = ({ setFormInfo }) => {
           placeholder="Country"
           value={formData.country}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -111,6 +122,7 @@ const FormComponent = ({ setFormInfo }) => {
           placeholder="Phone no"
           value={formData.phone}
           onChange={handleChange}
+          required
         />
       </label>
       <div className="flex items-center justify-center">

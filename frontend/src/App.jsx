@@ -12,7 +12,7 @@ import ItemView from "./pages/ItemView";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { AdminLink } from "./components/adminLink";
+import { AdminLink } from "./components/AdminLink";
 import ScrollTop from "./components/ScrollTop";
 import PageNotFound from "./pages/PageNotFound";
 export const backendURL = import.meta.env.VITE_BACKEND_URL;

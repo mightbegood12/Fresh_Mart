@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ProductUnits from "../components/ProductUnits";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import cacheImages from "../Utils/cacheImages.js";
 import { toast } from "react-toastify";

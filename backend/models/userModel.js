@@ -16,8 +16,12 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     cartData: {
-      type: Object,
-      default: {},
+      type: Array,
+      default: [],
+    },
+    orderId: {
+      type: Array,
+      default: [],
     },
   },
   { minimize: false }

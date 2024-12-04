@@ -1,12 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import add_icon from "/assets/add_icon.png";
-import orders_icon from "/assets/orders.png";
-import list_icon from "/assets/list_icon.png";
+import add_icon from "/add_icon.png";
+import orders_icon from "/orders.png";
+import list_icon from "/list_icon.png";
 
 const Sidebar = () => {
   return (
-    <div className="min-h-screen w-[18%] border-r-2">
+    <div className="min-h-full w-[18%] border-r-2">
       <div className="flex flex-col m-2 align-center justify-center">
         <NavLink
           to="/add"

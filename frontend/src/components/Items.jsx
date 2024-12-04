@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import DynamicButton from "./DynamicButton";
 import { currency } from "../constants/constant.js";
 import { useEffect, useState } from "react";
@@ -28,7 +28,7 @@ const Items = ({ item, categoryTitle }) => {
   return (
     <>
       <Link
-        to={`/item-view/${item.id}`}
+        to={`/item-view/${item._id}`}
         onClick={handleLinkClick}
         state={{ item, categoryTitle }}
         // target="_blank"
@@ -38,17 +38,24 @@ const Items = ({ item, categoryTitle }) => {
             {isLoading ? (
               <div className="bg-gray-100 h-[120px] w-[120px] animate-pulse"></div>
             ) : (
-              <div className="bg-gray-100 h-[120px] w-[120px] animate-pulse"></div>
+              // <div className="bg-gray-300 h-[120px] w-[120px] animate-pulse flex items-center justify-center">
+              //   {item.name}
+              // </div>
+              <img
+                className=" h-[120px] w-[120px] object-cover"
+                src={item.images[0]}
+                alt={item.name}
+              />
             )}
           </div>
-          <div className="info flex flex-col gap-1 items-start justify-start ">
-            <span className="font-semibold mt-1">{item.name}</span>
-            <div className="price-add-btn max-w-[100%] flex flex-row items-center  gap-5">
-              <span className="text-green-600 text-sm md:text-md lg:text-lg">{`${currency}${item.price.toFixed(
-                2
-              )}`}</span>
+          <div className="info flex flex-col gap-1 items-start justify-start">
+            <div className="font-semibold mt-1">{item.name}</div>
+            <div className="price-add-btn w-[100%] flex flex-row items-center justify-between gap-3">
+              <div className="text-green-600 text-sm md:text-md lg:text-lg">{`${currency}${item.price.toFixed(
+                0
+              )}`}</div>
               <div className="dynamic-button">
-                <DynamicButton item={item} />
+                <DynamicButton item={item} selectedUnit={item.unit[0]} />
               </div>
             </div>
           </div>

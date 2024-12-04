@@ -1,18 +1,15 @@
 import ImageCarousel from "../components/ImageCarousel";
 import Categories from "../components/Categories";
 import EasyAccess from "../components/EasyAccess";
+// import { useState } from "react";
 
-export default function Home({ categoriesData }) {
+export default function Home({ productData, availableCategories }) {
   return (
     <div className="min-h-screen mb-8 md:mb-12 flex flex-col gap-2">
-      <EasyAccess />
+      <EasyAccess categories={availableCategories} />
       <ImageCarousel />
-      {categoriesData.map((category, index) => (
-        <Categories
-          key={index}
-          categoryTitle={category.title}
-          items={category.items}
-        />
+      {availableCategories.map((category, index) => (
+        <Categories key={index} categoryTitle={category} items={productData} />
       ))}
     </div>
   );

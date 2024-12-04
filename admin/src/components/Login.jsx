@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast, Flip } from "react-toastify";
 import { backendUrl } from "../App";
 
 const Login = ({ setToken }) => {
@@ -16,13 +16,23 @@ const Login = ({ setToken }) => {
       if (response.data.success) {
         setToken(response.data.token);
         // console.log("token has set");
-        toast.info("Welcome");
+        toast.info("Welcome, admin", {
+          position: "top-center",
+          autoClose: 2000,
+          theme: "colored",
+          transition: Flip,
+        });
       } else {
         toast.error("Unauthorized");
       }
     } catch (error) {
       console.log(error.message);
-      toast.error(error.message);
+      toast.success("Unauthorized", {
+        position: "top-center",
+        autoClose: 2000,
+        theme: "colored",
+        transition: Flip,
+      });
     }
   };
   return (

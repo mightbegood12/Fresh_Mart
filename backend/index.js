@@ -5,7 +5,8 @@ import connectdatabase from "./config/mongodbconfig.js";
 import userRouter from "./routes/userRoute.js";
 import productRouter from "./routes/productRoute.js";
 import connectCloudinary from "./config/cloudinaryconfig.js";
-import paymentRoute from "./routes/paymentRoute.js";
+import paymentRouter from "./routes/paymentRoute.js";
+import orderRouter from "./routes/orderRoute.js";
 
 const app = express();
 dotenv.config();
@@ -16,9 +17,10 @@ connectCloudinary();
 
 app.use(express.json());
 app.use(cors());
+app.use("/api/order", orderRouter);
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
-app.use("/api/payments", paymentRoute);
+app.use("/api/payments", paymentRouter);
 
 app.get("/", (req, res) => {
   res.send("Working");

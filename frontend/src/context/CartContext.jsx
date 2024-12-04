@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { toast, Flip } from "react-toastify";
 
 export const CartContext = createContext();
@@ -10,7 +10,11 @@ export const useCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(
+    localStorage.getItem("cartData")
+      ? JSON.parse(localStorage.getItem("cartData"))
+      : []
+  );
   const addToCart = (item) => {
     if (!item.selectedUnit) {
       item.selectedUnit = item.unit[0];
@@ -28,6 +32,10 @@ export const CartProvider = ({ children }) => {
     }
     setCartItems((prevItems) => [...prevItems, item]);
   };
+
+  useEffect(() => {
+    localStorage.setItem("cartData", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const removeFromCart = (id, selectedUnit) => {
     setCartItems((prevItems) => {
@@ -52,14 +60,13 @@ export const CartProvider = ({ children }) => {
       setUser(userData);
       localStorage.setItem("user", JSON.stringify(userData));
       console.log(userData);
-      
     }
   };
-  
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    localStorage.setItem("cartData", "");
   };
 
   return (
@@ -71,7 +78,7 @@ export const CartProvider = ({ children }) => {
         currency,
         user,
         saveUser,
-        logout
+        logout,
       }}
     >
       {children}

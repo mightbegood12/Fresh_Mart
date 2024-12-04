@@ -12,15 +12,13 @@ const ImageCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isloading, setIsloading] = useState(true);
 
-  useEffect(() => {
-    cacheImages(images)
-      .then(() => {
-        setIsloading(false);
-      })
-      .catch(() => {
-        setIsloading(false);
-      });
-  }, []);
+  cacheImages(images)
+    .then(() => {
+      setIsloading(false);
+    })
+    .catch(() => {
+      setIsloading(false);
+    });
 
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>

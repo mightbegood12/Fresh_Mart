@@ -72,9 +72,12 @@ export default function Categories({ categoryTitle, items }) {
           </ArrowFix>
         }
       >
-        {items.map((item) => (
-          <Items key={item.id} item={item} categoryTitle={categoryTitle} />
-        ))}
+        {items.map(
+          (item) =>
+            item.category === categoryTitle && (
+              <Items key={item._id} item={item} categoryTitle={categoryTitle} />
+            )
+        )}
       </Carousel>
     </div>
   );

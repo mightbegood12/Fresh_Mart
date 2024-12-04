@@ -29,7 +29,8 @@ const List = ({ token }) => {
         { id },
         { headers: { token } }
       );
-      console.log(response);
+      // console.log(response);
+      toast.info("Product Removed");
     } catch (error) {
       toast.error(error.message);
     }
@@ -37,7 +38,7 @@ const List = ({ token }) => {
 
   useEffect(() => {
     fetchList();
-  }, []);
+  }, [list]);
 
   return (
     <div className="flex flex-col w-[82%] gap-2 p-2">

@@ -46,7 +46,7 @@ export default function ItemView() {
             <div className="big-img">
               <img
                 src={select}
-                className="min-h-[18rem] md:min-h-[24rem] object-cover object-center transition-opacity duration-300 ease-in-out"
+                className="min-h-[18rem] md:max-h-[30rem] object-cover object-center transition-opacity duration-300 ease-in-out"
                 alt={item.name}
               />
             </div>
@@ -68,8 +68,11 @@ export default function ItemView() {
                 </div>
               ))}
             </div>
-            <div className="hidden md:flex">
-              <ProductDetails productDescription={item.productDescription} />
+            <div className="hidden md:flex w-full">
+              <ProductDetails
+                productDescription={item.description}
+                itemName={item.name}
+              />
             </div>
           </div>
         )}
@@ -77,7 +80,7 @@ export default function ItemView() {
           {/* vr line */}
         </div>
 
-        <div className="item-info w-screen-sm md:w-[50%] p-4 md:p-8  flex gap-2 flex-col">
+        <div className="item-info h-full sticky top-20 w-screen-sm md:w-[50%] p-4 md:p-8  flex gap-2 flex-col">
           <div className="category text-gray-500 text-sm">
             {categoryTitle || "Unknown Category"}
           </div>

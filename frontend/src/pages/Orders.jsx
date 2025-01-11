@@ -35,27 +35,33 @@ export default function Orders() {
       }
     };
 
-    const fetchOrder = async (orderItemsId) => {
+    const fetchAllOrders = async () => {
       try {
-        const order = await axios.post(backendURL + "/api/order/getOrder", {
-          orderId: orderItemsId,
-        });
-        if (order.data.success) {
-          console.log(order);
-          const orderinfo = order.data.order;
-          setOrderItems(orderinfo.orderedItems);
-        } else {
-          setOrderItems();
-        }
+        await Promise.all(
+          orderItemsId.map(async (id) => {
+            const order = await axios.post(backendURL + "/api/order/getOrder", {
+              orderId: id,
+            });
+            if (order.data.success) {
+              const orderinfo = order.data.order;
+              setOrderInfo(orderinfo);
+              setOrderItems((prevOrders) => [
+                ...prevOrders,
+                ...orderinfo.orderedItems,
+              ]);
+            }
+          })
+        );
       } catch (error) {
         console.log(error.message);
       }
     };
     fetchOrderbyUserId();
-    fetchOrder(orderItemsId[0]);
+    setTimeout(fetchAllOrders, 2000);
   }, [orderItemsId, token]);
+
   const groupedItems = orderItems ? groupItemsById(orderItems) : [];
-  // console.log(groupedItems[0].price);
+
   const trackOrder = () => {
     toast.success("Changes Applied!", {
       theme: "colored",

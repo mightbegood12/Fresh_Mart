@@ -41,7 +41,7 @@ const List = ({ token }) => {
   }, [list]);
 
   return (
-    <div className="flex flex-col w-[82%] gap-2 p-2">
+    <div className="flex flex-col ml-[18%] w-[82%] gap-2 p-2">
       <p className="text-lg mt-1 font-semibold">All Products List</p>
       <div className="flex flex-col gap-2 m-4 ">
         <div className="hidden md:grid grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center py-1 px-2 border font-thin bg-gray-100 text-sm text-center">

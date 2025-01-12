@@ -98,7 +98,7 @@ const Add = ({ token }) => {
   };
 
   return (
-    <div className="w-[82%] flex flex-col gap-2 p-2">
+    <div className="w-[82%] h-[90vh] ml-[18%] flex flex-col gap-2 p-2">
       <p className="text-xl mt-1 font-semibold">Add Products</p>
       <form onSubmit={onSubmitHandler} className="flex flex-col gap-2">
         <p>Upload Photos</p>

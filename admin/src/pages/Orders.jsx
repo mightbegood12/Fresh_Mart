@@ -24,7 +24,7 @@ function Orders() {
   }, [list]);
   // console.log(list);
   return (
-    <div className="flex flex-col h-max gap-2 p-2 w-[82%]">
+    <div className="flex flex-col h-max gap-2 ml-[18%] p-2 w-[82%]">
       {/* <Title titleText="My Orders" /> */}
       <div className="font-semibold text-xl p-2">Order Page</div>
       <div className="flex flex-col gap-2 m-4 ">

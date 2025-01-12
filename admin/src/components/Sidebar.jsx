@@ -6,7 +6,7 @@ import list_icon from "/list_icon.png";
 
 const Sidebar = () => {
   return (
-    <div className="min-h-full w-[18%] border-r-2">
+    <div className="min-h-full fixed bg-white w-[18%] border-r-2">
       <div className="flex flex-col m-2 align-center justify-center">
         <NavLink
           to="/add"

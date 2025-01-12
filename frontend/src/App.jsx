@@ -15,11 +15,13 @@ import axios from "axios";
 import { AdminLink } from "./components/AdminLink";
 import ScrollTop from "./components/ScrollTop";
 import PageNotFound from "./pages/PageNotFound";
+import ItemsLoader from "./components/ItemsLoader";
 export const backendURL = import.meta.env.VITE_BACKEND_URL;
 
 // Main content of the app with Navbar control
 function AppContent() {
   const location = useLocation();
+  const [isLoading, setLoading] = useState(true);
   const [list, setList] = useState([]);
   // Define the routes where you don't want to render the Navbar
   const hideRoutes = ["/sign-in", "/sign-up"];
@@ -38,12 +40,15 @@ function AppContent() {
       );
       if (response.data.success) {
         setList(response.data.product);
+        setLoading(false);
         // console.log(list);
       } else {
         toast.error(response.data.message);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
       toast.error(error.message);
     }
   };
@@ -73,10 +78,14 @@ function AppContent() {
         <Route
           path="/"
           element={
-            <Home
-              productData={list}
-              availableCategories={availableCategories}
-            />
+            isLoading ? (
+              <ItemsLoader />
+            ) : (
+              <Home
+                productData={list}
+                availableCategories={availableCategories}
+              />
+            )
           }
         />
         <Route path="/sign-in" element={<SignIn setToken={setToken} />} />

@@ -1,9 +1,13 @@
 import React from "react";
 import DynamicButton from "./DynamicButton";
+import ImageCarousel from "./ImageCarousel";
+import EasyAccess from "./EasyAccess";
 
 export default function ItemsLoader() {
   return (
-    <>
+    <div className="min-h-screen mb-8 md:mb-12 flex flex-col gap-2">
+      <EasyAccess />
+      <ImageCarousel />
       <div className="carousel mx-[10%] flex flex-col gap-1 mt-6 md:mt-8">
         <div className="text-xl md:text-2xl font-semibold text-slate-700">
           Categories
@@ -111,6 +115,6 @@ export default function ItemsLoader() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

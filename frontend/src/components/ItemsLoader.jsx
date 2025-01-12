@@ -26,7 +26,9 @@ export default function ItemsLoader() {
                       $$$
                     </div>
                     <div className="dynamic-button">
-                      <DynamicButton />
+                      <button className="h-10 w-14  md:w-[68px] flex justify-center items-center gap-[3px] bg-red-600  hover:bg-red-500 text-white rounded-lg">
+                        Add
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -46,7 +48,9 @@ export default function ItemsLoader() {
                       $$$
                     </div>
                     <div className="dynamic-button">
-                      <DynamicButton />
+                      <button className="h-10 w-14  md:w-[68px] flex justify-center items-center gap-[3px] bg-red-600  hover:bg-red-500 text-white rounded-lg">
+                        Add
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -66,7 +70,9 @@ export default function ItemsLoader() {
                       $$$
                     </div>
                     <div className="dynamic-button">
-                      <DynamicButton />
+                      <button className="h-10 w-14  md:w-[68px] flex justify-center items-center gap-[3px] bg-red-600  hover:bg-red-500 text-white rounded-lg">
+                        Add
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -86,7 +92,9 @@ export default function ItemsLoader() {
                       $$$
                     </div>
                     <div className="dynamic-button">
-                      <DynamicButton />
+                      <button className="h-10 w-14  md:w-[68px] flex justify-center items-center gap-[3px] bg-red-600  hover:bg-red-500 text-white rounded-lg">
+                        Add
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -106,7 +114,9 @@ export default function ItemsLoader() {
                       $$$
                     </div>
                     <div className="dynamic-button">
-                      <DynamicButton />
+                      <button className="h-10 w-14  md:w-[68px] flex justify-center items-center gap-[3px] bg-red-600  hover:bg-red-500 text-white rounded-lg">
+                        Add
+                      </button>
                     </div>
                   </div>
                 </div>

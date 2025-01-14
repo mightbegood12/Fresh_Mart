@@ -11,54 +11,51 @@ export default function Orders() {
   const [orderItems, setOrderItems] = useState([]);
   const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    const fetchOrderbyUserId = async () => {
-      try {
-        if (token) {
-          // console.log(token);
-          const response = await axios.get(
-            backendURL + "/api/user/order-info",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          if (response.data.success) {
-            setOrderItemsId(response.data.orderId);
-          } else {
-            toast.error("No orders Placed!" || response.data.message);
-          }
+  const fetchOrderbyUserId = async () => {
+    try {
+      if (token) {
+        // console.log(token);
+        const response = await axios.get(backendURL + "/api/user/order-info", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.data.success) {
+          setOrderItemsId(response.data.orderId);
+        } else {
+          toast.error("No orders Placed!" || response.data.message);
         }
-      } catch (error) {
-        console.log(error.message);
       }
-    };
-
-    const fetchAllOrders = async () => {
-      try {
-        await Promise.all(
-          orderItemsId.map(async (id) => {
-            const order = await axios.post(backendURL + "/api/order/getOrder", {
-              orderId: id,
-            });
-            if (order.data.success) {
-              const orderinfo = order.data.order;
-              setOrderInfo(orderinfo);
-              setOrderItems((prevOrders) => [
-                ...prevOrders,
-                ...orderinfo.orderedItems,
-              ]);
-            }
-          })
-        );
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
+    } catch (error) {
+      console.error("Error fetching order by user ID:", error.message);
+      toast.error("Failed to fetch orders. Please try again later.");
+    }
+  };
+  useEffect(() => {
     fetchOrderbyUserId();
-    setTimeout(fetchAllOrders, 2000);
-  }, [orderItemsId, token]);
+  }, []);
+
+  const fetchAllOrders = async (orderIds) => {
+    try {
+      const order = await axios.post(backendURL + "/api/order/getOrder", {
+        orderId: orderIds[orderIds.length - 1],
+      });
+      if (order.data.success) {
+        const orderinfo = order.data.order;
+        setOrderInfo(orderinfo);
+        setOrderItems((prevOrders) => [
+          ...prevOrders,
+          ...orderinfo.orderedItems,
+        ]);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllOrders(orderItemsId);
+  }, [orderItemsId]);
 
   const groupedItems = orderItems ? groupItemsById(orderItems) : [];
 
@@ -70,7 +67,7 @@ export default function Orders() {
   };
 
   return (
-    <div className="flex flex-col gap-2 p-2 m-4 h-screen">
+    <div className="flex flex-col gap-2 p-2 m-4 h-auto">
       <Title titleText="My Orders" />
       <div className="flex flex-col gap-2 m-4 ">
         <div className="hidden md:grid grid-cols-[1fr_2fr_2fr_2fr_1fr] place-content-center items-center py-1 px-2 border font-thin bg-gray-100 text-sm text-center">

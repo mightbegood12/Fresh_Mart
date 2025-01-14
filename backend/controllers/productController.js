@@ -75,11 +75,14 @@ const removeProduct = async (req, res) => {
 const singleProduct = async (req, res) => {
   try {
     const { productId } = req.body;
-    const product = await productModel.findById(productId);
-    res.json({ success: true, product });
+    if (productId) {
+      const product = await productModel.findById(productId);
+      res.json({ success: true, product });
+    } else {
+      res.json({ success: false, message: "Invalid ProductId" });
+    }
   } catch (error) {
     console.log(error);
-
     res.json({ success: false, message: error.message });
   }
 };

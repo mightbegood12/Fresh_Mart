@@ -32,8 +32,8 @@ const listOrders = async (req, res) => {
 const fetchOrderById = async (req, res) => {
   try {
     const { orderId } = req.body;
-    const order = await orderModel.findById(orderId);
-    if (order) {
+    if (orderId) {
+      const order = await orderModel.findById(orderId);
       res.json({ success: true, order });
     } else {
       res.json({ success: false, message: "No Order Found" });

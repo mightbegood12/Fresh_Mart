@@ -118,9 +118,9 @@ const getUserOrder = async (req, res) => {
       return res
         .status(404)
         .json({ success: false, message: "User not found" });
+    } else {
+      res.json({ success: true, orderId: user.orderId });
     }
-    res.json({ success: true, orderId: user.orderId });
-    // console.log(user);
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: error.message });

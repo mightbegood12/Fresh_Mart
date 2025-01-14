@@ -60,8 +60,8 @@ export default function SignIn({ setToken }) {
             }
           );
 
-          const { name, email } = userResponse.data.user;
-          localStorage.setItem("user", JSON.stringify({ name, email }));
+          const { name, email, _id } = userResponse.data.user;
+          localStorage.setItem("user", JSON.stringify({ name, email, _id }));
 
           toast.success("Login Successfull!", {
             position: "top-center",

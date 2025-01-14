@@ -126,7 +126,9 @@ const FormComponent = ({ setFormInfo }) => {
         />
       </label>
       <div className="flex items-center justify-center">
-        <button className="bg-black w-max text-white px-4 py-2">Submit</button>
+        <button className=" bg-orange-600 rounded-lg hover:bg-red-600 w-max text-white px-4 py-2">
+          Submit
+        </button>
       </div>
     </form>
   );
